@@ -21,11 +21,7 @@ ACTIONS = [
 	"Tarjeta amarilla",
 	"Tarjeta roja",
 	"Parada",
-	"Gol encajado",
-	"Saque de puerta",
-	"Despeje de puños",
-	"Blocaje de centro",
-	"Distribucion",
+	"Blocaje"
 ]
 
 
