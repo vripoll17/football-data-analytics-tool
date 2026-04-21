@@ -34,6 +34,8 @@ class EventLoggerApp:
 		self.team_file: Path | None = None
 		self.match_file: Path | None = None
 		self.players: list[str] = []
+		self.player_positions: dict[str, str] = {}
+		self.rival_label = "Equipo rival"
 		self.match_headers: list[str] = ["timestamp", "player", "action"]
 		self.selected_player: str | None = None
 		self.team_file_var = tk.StringVar(value="No team selected")
@@ -79,9 +81,6 @@ class EventLoggerApp:
 			row=0, column=3, padx=6, pady=10
 		)
 
-		ttk.Button(match_frame, text="Open Event Panel", command=self.open_event_panel).grid(
-			row=1, column=0, padx=8, pady=(0, 10), sticky="w"
-		)
 		ttk.Label(match_frame, textvariable=self.event_status_var).grid(
 			row=1, column=1, columnspan=3, padx=8, pady=(0, 10), sticky="w"
 		)
@@ -154,7 +153,7 @@ class EventLoggerApp:
 		self.team_file_var.set(str(selected_path))
 
 		try:
-			self.players = self._load_players(selected_path)
+			self.players, self.player_positions = self._load_players(selected_path)
 		except Exception as exc:
 			messagebox.showerror("Load Error", f"Could not read players: {exc}")
 			return
@@ -197,7 +196,7 @@ class EventLoggerApp:
 		self._create_empty_match_csv(match_path)
 
 		self.match_file = match_path
-		self.match_headers = ["timestamp", "player", "action"]
+		self.match_headers = ["timestamp", "player", "action", "position"]
 		self.match_file_var.set(str(match_path))
 
 		print("\n=== Match Created ===")
@@ -226,6 +225,9 @@ class EventLoggerApp:
 
 		self.match_file = match_path
 		self.match_headers = self._read_match_headers(match_path)
+		if "position" not in self.match_headers:
+			self._add_match_column(match_path, "position")
+			self.match_headers = self._read_match_headers(match_path)
 		self.match_file_var.set(str(match_path))
 
 		print("\n=== Match Loaded ===")
@@ -233,17 +235,6 @@ class EventLoggerApp:
 		print(f"Headers: {self.match_headers}")
 
 		self.event_status_var.set(f"Match loaded: {match_path.name}")
-
-	def open_event_panel(self) -> None:
-		if not self.players:
-			self.event_status_var.set("Select team first")
-			return
-
-		if not self.match_file:
-			self.event_status_var.set("Create or load a match file first")
-			return
-
-		self.event_status_var.set("Event panel ready")
 
 	def _render_player_buttons(self) -> None:
 		for child in self.players_inner.winfo_children():
@@ -257,6 +248,14 @@ class EventLoggerApp:
 				width=24,
 			)
 			btn.grid(row=idx // 3, column=idx % 3, padx=6, pady=6, sticky="ew")
+
+		rival_row = (len(self.players) + 2) // 3
+		ttk.Button(
+			self.players_inner,
+			text=self.rival_label,
+			command=lambda: self._select_player(self.rival_label),
+			width=24,
+		).grid(row=rival_row, column=0, columnspan=3, padx=6, pady=(10, 6), sticky="ew")
 
 		for col in range(3):
 			self.players_inner.grid_columnconfigure(col, weight=1)
@@ -297,7 +296,13 @@ class EventLoggerApp:
 			return
 
 		timestamp = datetime.now().isoformat(timespec="seconds")
-		row = self._build_event_row(timestamp=timestamp, player=self.selected_player, action=action)
+		position = self._get_player_position(self.selected_player)
+		row = self._build_event_row(
+			timestamp=timestamp,
+			player=self.selected_player,
+			action=action,
+			position=position,
+		)
 		with self.match_file.open("a", encoding="utf-8", newline="") as f:
 			writer = csv.writer(f)
 			writer.writerow(row)
@@ -311,7 +316,22 @@ class EventLoggerApp:
 	def _create_empty_match_csv(self, match_path: Path) -> None:
 		with match_path.open("w", encoding="utf-8", newline="") as f:
 			writer = csv.writer(f)
-			writer.writerow(["timestamp", "player", "action"])
+			writer.writerow(["timestamp", "player", "action", "position"])
+
+	def _add_match_column(self, match_path: Path, column_name: str) -> None:
+		with match_path.open("r", encoding="utf-8", newline="") as f:
+			rows = list(csv.reader(f))
+
+		if not rows:
+			rows = [["timestamp", "player", "action", column_name]]
+		else:
+			rows[0].append(column_name)
+			for idx in range(1, len(rows)):
+				rows[idx].append("")
+
+		with match_path.open("w", encoding="utf-8", newline="") as f:
+			writer = csv.writer(f)
+			writer.writerows(rows)
 
 	def _read_match_headers(self, match_path: Path) -> list[str]:
 		with match_path.open("r", encoding="utf-8", newline="") as f:
@@ -328,17 +348,22 @@ class EventLoggerApp:
 
 		return normalized
 
-	def _build_event_row(self, timestamp: str, player: str, action: str) -> list[str]:
+	def _build_event_row(self, timestamp: str, player: str, action: str, position: str = "") -> list[str]:
 		values = {
 			"timestamp": timestamp,
 			"player": player,
 			"action": action,
+			"position": position,
 			"minute": "",
-			"details": "",
 		}
 		return [values.get(header, "") for header in self.match_headers]
 
-	def _load_players(self, team_file: Path) -> list[str]:
+	def _get_player_position(self, player: str) -> str:
+		if player == self.rival_label:
+			return "Rival"
+		return self.player_positions.get(player, "")
+
+	def _load_players(self, team_file: Path) -> tuple[list[str], dict[str, str]]:
 		ext = team_file.suffix.lower()
 		if ext == ".json":
 			return self._load_players_json(team_file)
@@ -346,11 +371,12 @@ class EventLoggerApp:
 			return self._load_players_csv(team_file)
 		raise ValueError("Supported formats are .json and .csv")
 
-	def _load_players_json(self, team_file: Path) -> list[str]:
+	def _load_players_json(self, team_file: Path) -> tuple[list[str], dict[str, str]]:
 		with team_file.open("r", encoding="utf-8") as f:
 			data = json.load(f)
 
 		players: list[str] = []
+		positions: dict[str, str] = {}
 
 		# Supported format 1: {"players": [{"name": "..."}, ...]}
 		if isinstance(data, dict) and isinstance(data.get("players"), list):
@@ -359,25 +385,32 @@ class EventLoggerApp:
 					name = str(item.get("name", "")).strip()
 					if name:
 						players.append(name)
+						positions[name] = str(item.get("position", "")).strip()
 				elif isinstance(item, str) and item.strip():
-					players.append(item.strip())
-			return players
+					name = item.strip()
+					players.append(name)
+					positions[name] = ""
+			return players, positions
 
 		# Supported format 2: ["Name 1", "Name 2"]
 		if isinstance(data, list):
 			for item in data:
 				if isinstance(item, str) and item.strip():
-					players.append(item.strip())
+					name = item.strip()
+					players.append(name)
+					positions[name] = ""
 				elif isinstance(item, dict):
 					name = str(item.get("name", "")).strip()
 					if name:
 						players.append(name)
-			return players
+						positions[name] = str(item.get("position", "")).strip()
+			return players, positions
 
 		raise ValueError("Invalid JSON structure for players")
 
-	def _load_players_csv(self, team_file: Path) -> list[str]:
+	def _load_players_csv(self, team_file: Path) -> tuple[list[str], dict[str, str]]:
 		players: list[str] = []
+		positions: dict[str, str] = {}
 		with team_file.open("r", encoding="utf-8", newline="") as f:
 			reader = csv.DictReader(f)
 			if not reader.fieldnames:
@@ -385,6 +418,7 @@ class EventLoggerApp:
 
 			headers = {h.lower(): h for h in reader.fieldnames}
 			name_header = headers.get("name")
+			position_header = headers.get("position")
 			if not name_header:
 				raise ValueError("CSV must include a 'name' column")
 
@@ -392,8 +426,9 @@ class EventLoggerApp:
 				name = str(row.get(name_header, "")).strip()
 				if name:
 					players.append(name)
+					positions[name] = str(row.get(position_header, "")).strip() if position_header else ""
 
-		return players
+		return players, positions
 
 
 def main() -> None:
