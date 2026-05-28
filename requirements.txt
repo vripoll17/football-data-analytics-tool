@@ -1,4 +1,5 @@
 matplotlib
 pandas
+reportlab
 ipykernel
 notebook
