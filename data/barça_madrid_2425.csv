@@ -1,0 +1,762 @@
+timestamp,player,action,position
+2026-04-24T13:42:56,Equipo rival,Pase,Rival
+2026-04-24T13:43:00,Equipo rival,Pase,Rival
+2026-04-24T13:43:13,Equipo rival,Pase,Rival
+2026-04-24T13:43:25,Equipo rival,Pase,Rival
+2026-04-24T13:44:01,Equipo rival,Despeje,Rival
+2026-04-24T13:45:08,Equipo rival,Falta cometida,Rival
+2026-04-24T13:46:12,Raphinha,Pase,Atacante
+2026-04-24T13:46:25,Raphinha,Pase errado,Atacante
+2026-04-24T13:47:14,Equipo rival,Despeje,Rival
+2026-04-24T13:47:38,Equipo rival,Pase,Rival
+2026-04-24T13:47:39,Equipo rival,Pase,Rival
+2026-04-24T13:48:37,Equipo rival,Pase,Rival
+2026-04-24T13:48:38,Equipo rival,Pase,Rival
+2026-04-24T13:48:39,Equipo rival,Pase,Rival
+2026-04-24T13:48:40,Equipo rival,Pase,Rival
+2026-04-24T13:48:41,Equipo rival,Pase,Rival
+2026-04-24T13:48:42,Equipo rival,Pase,Rival
+2026-04-24T13:48:43,Equipo rival,Pase,Rival
+2026-04-24T13:48:43,Equipo rival,Pase,Rival
+2026-04-24T13:48:44,Equipo rival,Pase,Rival
+2026-04-24T13:48:45,Equipo rival,Pase,Rival
+2026-04-24T13:48:46,Equipo rival,Pase,Rival
+2026-04-24T13:48:50,Equipo rival,Despeje,Rival
+2026-04-24T13:48:51,Equipo rival,Perdida,Rival
+2026-04-24T13:49:32,Eric Garcia,Pase,Defensa
+2026-04-24T13:49:37,Ferran Torres,Perdida,Atacante
+2026-04-24T13:49:57,Equipo rival,Pase,Rival
+2026-04-24T13:50:00,Equipo rival,Pase,Rival
+2026-04-24T13:50:06,Equipo rival,Perdida,Rival
+2026-04-24T13:50:18,Cubarsi,Intercepcion,Defensa
+2026-04-24T13:51:08,Equipo rival,Pase,Rival
+2026-04-24T13:51:28,Equipo rival,Falta recibida,Rival
+2026-04-24T13:51:47,Dani Olmo,Falta cometida,Mediocampista
+2026-04-24T13:52:17,Equipo rival,Pase,Rival
+2026-04-24T13:52:42,Cubarsi,Intercepcion,Defensa
+2026-04-24T13:52:54,Szczesny,Falta cometida,Portero
+2026-04-24T13:52:56,Equipo rival,Falta recibida,Rival
+2026-04-24T13:53:22,Equipo rival,Pase,Rival
+2026-04-24T13:57:28,Szczesny,Penalti cometido,Portero
+2026-04-24T13:57:33,Equipo rival,Penalti recibido,Rival
+2026-04-24T13:58:00,Equipo rival,Gol,Rival
+2026-04-24T13:58:57,De Jong,Pase,Mediocampista
+2026-04-24T13:59:18,I. Martinez,Pase,Defensa
+2026-04-24T13:59:32,Gerard Martin,Perdida,Defensa
+2026-04-24T13:59:44,Equipo rival,Recuperacion,Rival
+2026-04-24T13:59:54,Equipo rival,Falta recibida,Rival
+2026-04-24T13:59:58,Gerard Martin,Falta cometida,Defensa
+2026-04-24T14:00:34,Equipo rival,Pase errado,Rival
+2026-04-24T14:00:50,Cubarsi,Intercepcion,Defensa
+2026-04-24T14:01:01,Equipo rival,Regate,Rival
+2026-04-24T14:01:03,Equipo rival,Pase,Rival
+2026-04-24T14:01:14,Equipo rival,Pase,Rival
+2026-04-24T14:01:46,Equipo rival,Pase,Rival
+2026-04-24T14:01:47,Equipo rival,Pase,Rival
+2026-04-24T14:01:48,Equipo rival,Pase,Rival
+2026-04-24T14:01:49,Equipo rival,Perdida,Rival
+2026-04-24T14:01:57,Gerard Martin,Pase,Defensa
+2026-04-24T14:02:04,I. Martinez,Pase,Defensa
+2026-04-24T14:02:16,De Jong,Pase,Mediocampista
+2026-04-24T14:02:22,Raphinha,Pase,Atacante
+2026-04-24T14:02:38,De Jong,Pase,Mediocampista
+2026-04-24T14:02:45,Gerard Martin,Pase,Defensa
+2026-04-24T14:02:52,De Jong,Pase,Mediocampista
+2026-04-24T14:02:56,Pedri,Pase,Mediocampista
+2026-04-24T14:03:03,De Jong,Pase,Mediocampista
+2026-04-24T14:03:12,Cubarsi,Pase,Defensa
+2026-04-24T14:03:21,Eric Garcia,Pase,Defensa
+2026-04-24T14:03:29,Lamine Yamal,Pase,Atacante
+2026-04-24T14:03:47,Eric Garcia,Tiro a puerta,Defensa
+2026-04-24T14:03:57,Equipo rival,Parada,Rival
+2026-04-24T14:04:36,Raphinha,Pase,Atacante
+2026-04-24T14:04:48,Lamine Yamal,Regate,Atacante
+2026-04-24T14:04:58,Lamine Yamal,Pase errado,Atacante
+2026-04-24T14:05:01,Lamine Yamal,Perdida,Atacante
+2026-04-24T14:05:29,Equipo rival,Pase errado,Rival
+2026-04-24T14:05:44,Cubarsi,Despeje,Defensa
+2026-04-24T14:05:54,Equipo rival,Despeje,Rival
+2026-04-24T14:06:05,Szczesny,Recuperacion,Portero
+2026-04-24T14:06:09,Szczesny,Pase,Portero
+2026-04-24T14:06:16,I. Martinez,Pase,Defensa
+2026-04-24T14:06:20,Gerard Martin,Pase,Defensa
+2026-04-24T14:06:26,I. Martinez,Pase,Defensa
+2026-04-24T14:06:34,Szczesny,Pase,Portero
+2026-04-24T14:06:43,Eric Garcia,Pase errado,Defensa
+2026-04-24T14:07:21,Eric Garcia,Pase,Defensa
+2026-04-24T14:07:25,Ferran Torres,Pase,Atacante
+2026-04-24T14:07:47,Lamine Yamal,Pase,Atacante
+2026-04-24T14:07:53,Dani Olmo,Pase,Mediocampista
+2026-04-24T14:08:01,Lamine Yamal,Pase,Atacante
+2026-04-24T14:08:06,Pedri,Pase,Mediocampista
+2026-04-24T14:08:12,De Jong,Pase,Mediocampista
+2026-04-24T14:08:21,I. Martinez,Pase,Defensa
+2026-04-24T14:08:38,Gerard Martin,Falta recibida,Defensa
+2026-04-24T14:08:41,Equipo rival,Falta cometida,Rival
+2026-04-24T14:09:12,Pedri,Pase,Mediocampista
+2026-04-24T14:09:19,Raphinha,Pase,Atacante
+2026-04-24T14:09:33,De Jong,Pase errado,Mediocampista
+2026-04-24T14:09:34,De Jong,Perdida,Mediocampista
+2026-04-24T14:09:40,Equipo rival,Recuperacion,Rival
+2026-04-24T14:09:44,Equipo rival,Pase,Rival
+2026-04-24T14:10:01,Equipo rival,Regate,Rival
+2026-04-24T14:10:10,De Jong,Recuperacion,Mediocampista
+2026-04-24T14:10:18,De Jong,Pase,Mediocampista
+2026-04-24T14:10:23,Gerard Martin,Pase,Defensa
+2026-04-27T10:47:16,I. Martinez,Pase,Defensa
+2026-04-27T10:47:28,Dani Olmo,Pase,Mediocampista
+2026-04-27T10:48:02,Equipo rival,Intercepcion,Rival
+2026-04-27T10:48:55,Dani Olmo,Pase errado,Mediocampista
+2026-04-27T10:48:57,Dani Olmo,Perdida,Mediocampista
+2026-04-27T10:49:02,Equipo rival,Recuperacion,Rival
+2026-04-27T10:49:11,Equipo rival,Pase errado,Rival
+2026-04-27T10:49:13,Equipo rival,Perdida,Rival
+2026-04-27T10:49:51,Raphinha,Pase,Atacante
+2026-04-27T10:49:58,Dani Olmo,Pase,Mediocampista
+2026-04-27T10:50:02,Raphinha,Pase,Atacante
+2026-04-27T10:50:08,Cubarsi,Pase,Defensa
+2026-04-27T10:50:23,Pedri,Pase errado,Mediocampista
+2026-04-27T10:50:25,Pedri,Perdida,Mediocampista
+2026-04-27T10:51:07,Equipo rival,Pase,Rival
+2026-04-27T10:51:09,Equipo rival,Despeje,Rival
+2026-04-27T10:51:15,Equipo rival,Pase,Rival
+2026-04-27T10:51:17,Equipo rival,Pase errado,Rival
+2026-04-27T10:51:22,De Jong,Recuperacion,Mediocampista
+2026-04-27T10:51:26,De Jong,Pase,Mediocampista
+2026-04-27T10:51:31,I. Martinez,Pase,Defensa
+2026-04-27T10:51:38,De Jong,Pase,Mediocampista
+2026-04-27T10:51:48,Pedri,Pase,Mediocampista
+2026-04-27T10:51:55,Cubarsi,Pase,Defensa
+2026-04-27T10:51:58,Pedri,Pase,Mediocampista
+2026-04-27T10:52:00,Cubarsi,Pase,Defensa
+2026-04-27T10:52:05,I. Martinez,Pase,Defensa
+2026-04-27T10:52:10,Gerard Martin,Pase,Defensa
+2026-04-27T10:52:13,De Jong,Pase,Mediocampista
+2026-04-27T10:52:17,Pedri,Pase,Mediocampista
+2026-04-27T10:52:30,Gerard Martin,Pase,Defensa
+2026-04-27T10:52:44,Gerard Martin,Pase errado,Defensa
+2026-04-27T10:52:46,Gerard Martin,Perdida,Defensa
+2026-04-27T10:53:46,Equipo rival,Despeje,Rival
+2026-04-27T10:53:52,Cubarsi,Intercepcion,Defensa
+2026-04-27T10:53:57,Equipo rival,Intercepcion,Rival
+2026-04-27T10:54:18,Equipo rival,Pase,Rival
+2026-04-27T10:54:24,Gerard Martin,Intercepcion,Defensa
+2026-04-27T10:54:38,Equipo rival,Perdida,Rival
+2026-04-27T10:54:43,Pedri,Recuperacion,Mediocampista
+2026-04-27T10:54:58,Equipo rival,Falta cometida,Rival
+2026-04-27T10:55:01,Pedri,Falta recibida,Mediocampista
+2026-04-27T10:55:33,Szczesny,Pase,Portero
+2026-04-27T10:55:44,Eric Garcia,Pase,Defensa
+2026-04-27T10:55:51,Lamine Yamal,Regate,Atacante
+2026-04-27T10:56:03,Lamine Yamal,Perdida,Atacante
+2026-04-27T10:56:05,Equipo rival,Recuperacion,Rival
+2026-04-27T10:56:08,Equipo rival,Pase,Rival
+2026-04-27T10:56:16,Equipo rival,Pase,Rival
+2026-04-27T10:56:21,Equipo rival,Tiro,Rival
+2026-04-27T10:56:22,Equipo rival,Tiro a puerta,Rival
+2026-04-27T10:56:25,Equipo rival,Gol,Rival
+2026-04-27T10:57:25,Ferran Torres,Pase,Atacante
+2026-04-27T10:57:33,De Jong,Pase,Mediocampista
+2026-04-27T10:57:52,Gerard Martin,Pase,Defensa
+2026-04-27T10:58:11,Pedri,Pase errado,Mediocampista
+2026-04-27T10:58:13,Equipo rival,Intercepcion,Rival
+2026-04-27T10:59:43,Dani Olmo,Pase,Mediocampista
+2026-04-27T10:59:46,Pedri,Pase,Mediocampista
+2026-04-27T10:59:55,Lamine Yamal,Pase,Atacante
+2026-04-27T11:00:02,Raphinha,Pase,Atacante
+2026-04-27T11:00:14,Gerard Martin,Pase,Defensa
+2026-04-27T11:00:26,Pedri,Pase errado,Mediocampista
+2026-04-27T11:00:30,Equipo rival,Despeje,Rival
+2026-04-27T11:00:37,Lamine Yamal,Recuperacion,Atacante
+2026-04-27T11:00:46,Lamine Yamal,Tiro,Atacante
+2026-04-27T11:00:57,Equipo rival,Parada,Rival
+2026-04-27T11:01:41,Raphinha,Pase,Atacante
+2026-04-27T11:01:44,I. Martinez,Tiro,Defensa
+2026-04-27T11:02:22,Equipo rival,Pase,Rival
+2026-04-27T11:02:32,Equipo rival,Pase,Rival
+2026-04-27T11:02:36,Equipo rival,Pase,Rival
+2026-04-27T11:02:40,Equipo rival,Pase errado,Rival
+2026-04-27T11:02:46,Raphinha,Recuperacion,Atacante
+2026-04-27T11:03:00,Raphinha,Pase errado,Atacante
+2026-04-27T11:03:04,Equipo rival,Despeje,Rival
+2026-04-27T11:03:36,Pedri,Pase,Mediocampista
+2026-04-27T11:03:52,Dani Olmo,Pase errado,Mediocampista
+2026-04-27T11:03:55,Equipo rival,Despeje,Rival
+2026-04-27T11:04:05,Gerard Martin,Recuperacion,Defensa
+2026-04-27T11:04:07,Gerard Martin,Tiro a puerta,Defensa
+2026-04-27T11:04:38,Equipo rival,Parada,Rival
+2026-04-27T11:05:46,Dani Olmo,Pase,Mediocampista
+2026-04-27T11:15:38,Ferran Torres,Pase,Atacante
+2026-04-27T11:15:42,Eric Garcia,Tiro a puerta,Defensa
+2026-04-27T11:15:43,Eric Garcia,Gol,Defensa
+2026-04-27T11:15:50,Equipo rival,Pase,Rival
+2026-04-27T11:15:50,Equipo rival,Pase,Rival
+2026-04-27T11:15:51,Equipo rival,Pase,Rival
+2026-04-27T11:16:09,Equipo rival,Perdida,Rival
+2026-04-27T11:17:02,Equipo rival,Pase,Rival
+2026-04-27T11:17:13,Eric Garcia,Intercepcion,Defensa
+2026-04-27T11:17:30,Equipo rival,Pase,Rival
+2026-04-27T11:17:36,Equipo rival,Despeje,Rival
+2026-04-27T11:17:37,Equipo rival,Perdida,Rival
+2026-04-27T11:17:45,Eric Garcia,Pase,Defensa
+2026-04-27T11:17:53,Dani Olmo,Pase,Mediocampista
+2026-04-27T11:18:07,I. Martinez,Pase,Defensa
+2026-04-27T11:18:21,Gerard Martin,Pase,Defensa
+2026-04-27T11:18:26,Pedri,Perdida,Mediocampista
+2026-04-27T11:18:29,Equipo rival,Recuperacion,Rival
+2026-04-27T11:18:36,Equipo rival,Pase,Rival
+2026-04-27T11:18:37,Equipo rival,Pase,Rival
+2026-04-27T11:18:39,Equipo rival,Pase,Rival
+2026-04-27T11:18:41,Equipo rival,Pase,Rival
+2026-04-27T11:18:59,Equipo rival,Pase errado,Rival
+2026-04-27T11:19:03,Pedri,Recuperacion,Mediocampista
+2026-04-27T11:19:09,Pedri,Pase,Mediocampista
+2026-04-27T11:19:19,Raphinha,Pase errado,Atacante
+2026-04-27T11:19:22,Equipo rival,Intercepcion,Rival
+2026-04-27T11:19:33,Gerard Martin,Perdida,Defensa
+2026-04-27T11:19:39,Equipo rival,Recuperacion,Rival
+2026-04-27T11:19:49,Equipo rival,Despeje,Rival
+2026-04-27T11:19:50,Equipo rival,Perdida,Rival
+2026-04-27T11:19:52,De Jong,Recuperacion,Mediocampista
+2026-04-27T11:19:54,De Jong,Pase,Mediocampista
+2026-04-27T11:20:07,Pedri,Pase,Mediocampista
+2026-04-27T11:20:12,Gerard Martin,Pase,Defensa
+2026-04-27T11:20:17,I. Martinez,Pase,Defensa
+2026-04-27T11:20:22,De Jong,Pase,Mediocampista
+2026-04-27T11:20:29,Pedri,Pase,Mediocampista
+2026-04-27T11:20:35,Raphinha,Pase,Atacante
+2026-04-27T11:20:42,Pedri,Pase,Mediocampista
+2026-04-27T11:20:47,Cubarsi,Pase,Defensa
+2026-04-27T11:20:54,Eric Garcia,Pase,Defensa
+2026-04-27T11:21:00,Lamine Yamal,Regate,Atacante
+2026-04-27T11:21:13,Equipo rival,Falta cometida,Rival
+2026-04-27T11:21:16,Lamine Yamal,Falta recibida,Atacante
+2026-04-27T11:21:49,Lamine Yamal,Pase,Atacante
+2026-04-27T11:21:55,De Jong,Pase,Mediocampista
+2026-04-27T11:22:04,Gerard Martin,Pase,Defensa
+2026-04-27T11:22:20,Pedri,Pase,Mediocampista
+2026-04-27T11:22:30,Pedri,Pase,Mediocampista
+2026-04-27T11:22:36,Pedri,Pase,Mediocampista
+2026-04-27T11:22:46,Gerard Martin,Pase errado,Defensa
+2026-04-27T11:22:57,Gerard Martin,Pase,Defensa
+2026-04-27T11:23:04,Ferran Torres,Tiro,Atacante
+2026-04-27T11:23:13,Equipo rival,Despeje,Rival
+2026-04-27T11:24:18,Eric Garcia,Pase,Defensa
+2026-04-27T11:24:28,Ferran Torres,Regate,Atacante
+2026-04-27T11:24:36,Equipo rival,Despeje,Rival
+2026-04-27T11:24:56,Eric Garcia,Pase,Defensa
+2026-04-27T11:25:02,Lamine Yamal,Pase,Atacante
+2026-04-27T11:25:06,Eric Garcia,Regate,Defensa
+2026-04-27T11:25:16,Eric Garcia,Pase errado,Defensa
+2026-04-27T11:25:19,Equipo rival,Recuperacion,Rival
+2026-04-27T11:25:30,Equipo rival,Pase,Rival
+2026-04-27T11:25:31,Equipo rival,Pase,Rival
+2026-04-27T11:25:33,Equipo rival,Pase,Rival
+2026-04-27T11:25:45,Equipo rival,Pase,Rival
+2026-04-27T11:25:54,Pedri,Intercepcion,Mediocampista
+2026-04-27T11:26:05,Dani Olmo,Perdida,Mediocampista
+2026-04-27T11:26:16,Equipo rival,Despeje,Rival
+2026-04-27T11:26:28,Lamine Yamal,Pase,Atacante
+2026-04-27T11:26:33,Eric Garcia,Pase,Defensa
+2026-04-27T11:26:41,Lamine Yamal,Pase,Atacante
+2026-04-27T11:26:44,Eric Garcia,Pase,Defensa
+2026-04-27T11:26:56,Pedri,Pase,Mediocampista
+2026-04-27T11:27:04,De Jong,Pase,Mediocampista
+2026-04-27T11:27:09,Dani Olmo,Pase,Mediocampista
+2026-04-27T11:27:36,Equipo rival,Intercepcion,Rival
+2026-04-27T11:27:49,Lamine Yamal,Pase,Atacante
+2026-04-27T11:28:00,Raphinha,Pase errado,Atacante
+2026-04-27T11:28:03,Equipo rival,Recuperacion,Rival
+2026-04-27T11:28:08,Raphinha,Perdida,Atacante
+2026-04-27T11:28:14,Lamine Yamal,Recuperacion,Atacante
+2026-04-27T11:28:25,Lamine Yamal,Tiro a puerta,Atacante
+2026-04-27T11:29:06,Equipo rival,Blocaje,Rival
+2026-04-27T11:29:09,Equipo rival,Pase,Rival
+2026-04-27T11:29:13,Equipo rival,Pase,Rival
+2026-04-27T11:29:16,Equipo rival,Pase,Rival
+2026-04-27T11:29:27,Dani Olmo,Falta cometida,Mediocampista
+2026-04-27T11:29:29,Equipo rival,Falta recibida,Rival
+2026-04-27T11:30:31,Equipo rival,Pase,Rival
+2026-04-27T11:30:32,Equipo rival,Pase,Rival
+2026-04-27T11:30:36,Equipo rival,Pase,Rival
+2026-04-27T11:30:44,Equipo rival,Pase,Rival
+2026-04-27T11:30:52,Equipo rival,Pase,Rival
+2026-04-27T11:31:08,Equipo rival,Pase errado,Rival
+2026-04-27T11:31:10,Szczesny,Despeje,Portero
+2026-04-27T11:31:19,Equipo rival,Pase errado,Rival
+2026-04-27T11:31:27,Gerard Martin,Recuperacion,Defensa
+2026-04-27T11:31:36,Gerard Martin,Pase errado,Defensa
+2026-04-27T11:31:39,Equipo rival,Intercepcion,Rival
+2026-04-27T11:31:54,Equipo rival,Recuperacion,Rival
+2026-04-27T11:31:57,Equipo rival,Pase,Rival
+2026-04-27T11:32:01,Equipo rival,Despeje,Rival
+2026-04-27T11:32:19,I. Martinez,Recuperacion,Defensa
+2026-04-27T11:32:51,I. Martinez,Pase,Defensa
+2026-04-27T11:32:54,Cubarsi,Pase,Defensa
+2026-04-27T11:32:57,I. Martinez,Pase,Defensa
+2026-04-27T11:33:05,Gerard Martin,Pase errado,Defensa
+2026-04-27T11:33:37,Equipo rival,Falta cometida,Rival
+2026-04-27T11:33:40,Ferran Torres,Falta recibida,Atacante
+2026-04-27T11:35:55,Raphinha,Pase errado,Atacante
+2026-04-27T11:35:58,Equipo rival,Intercepcion,Rival
+2026-04-27T11:37:00,Raphinha,Pase errado,Atacante
+2026-04-27T11:37:06,Raphinha,Perdida,Atacante
+2026-04-27T11:37:51,Equipo rival,Pase,Rival
+2026-04-27T11:37:56,Equipo rival,Regate,Rival
+2026-04-27T11:37:59,Equipo rival,Despeje,Rival
+2026-04-27T11:38:02,Equipo rival,Perdida,Rival
+2026-04-27T11:38:09,Szczesny,Recuperacion,Portero
+2026-04-27T11:38:10,Szczesny,Pase,Portero
+2026-04-27T11:38:24,I. Martinez,Pase,Defensa
+2026-04-27T11:38:31,Cubarsi,Pase,Defensa
+2026-04-27T11:38:35,Eric Garcia,Pase,Defensa
+2026-04-27T11:38:42,Raphinha,Pase,Atacante
+2026-04-27T11:38:51,De Jong,Pase,Mediocampista
+2026-04-27T11:38:55,Pedri,Pase,Mediocampista
+2026-04-27T11:39:07,I. Martinez,Pase errado,Defensa
+2026-04-27T11:39:12,Equipo rival,Despeje,Rival
+2026-04-27T11:39:15,Equipo rival,Pase,Rival
+2026-04-27T11:39:20,Equipo rival,Pase errado,Rival
+2026-04-27T11:39:27,Cubarsi,Recuperacion,Defensa
+2026-04-27T11:39:34,Cubarsi,Pase,Defensa
+2026-04-27T11:39:38,Szczesny,Pase,Portero
+2026-04-27T11:39:50,Pedri,Pase,Mediocampista
+2026-04-27T11:39:56,Raphinha,Perdida,Atacante
+2026-04-27T11:40:01,Equipo rival,Pase,Rival
+2026-04-27T11:40:04,Equipo rival,Recuperacion,Rival
+2026-04-27T11:40:12,Equipo rival,Pase errado,Rival
+2026-04-27T11:40:20,De Jong,Recuperacion,Mediocampista
+2026-04-27T11:40:26,De Jong,Pase,Mediocampista
+2026-04-27T11:40:32,Pedri,Pase,Mediocampista
+2026-04-27T11:40:53,Equipo rival,Falta cometida,Rival
+2026-04-27T11:40:55,Lamine Yamal,Falta recibida,Atacante
+2026-04-27T11:40:58,Equipo rival,Tarjeta amarilla,Rival
+2026-04-27T11:44:25,Dani Olmo,Pase errado,Mediocampista
+2026-04-27T11:44:29,Equipo rival,Despeje,Rival
+2026-04-27T11:44:37,Lamine Yamal,Pase errado,Atacante
+2026-04-27T11:44:39,Equipo rival,Despeje,Rival
+2026-04-27T11:45:11,De Jong,Pase,Mediocampista
+2026-04-27T11:45:17,Pedri,Pase,Mediocampista
+2026-04-27T11:45:29,De Jong,Pase,Mediocampista
+2026-04-27T11:45:35,Pedri,Pase,Mediocampista
+2026-04-27T11:45:47,Lamine Yamal,Pase,Atacante
+2026-04-27T11:45:53,Pedri,Pase,Mediocampista
+2026-04-27T11:45:57,Dani Olmo,Pase,Mediocampista
+2026-04-27T11:46:01,Eric Garcia,Pase,Defensa
+2026-04-27T11:46:09,Raphinha,Pase,Atacante
+2026-04-27T11:46:15,Pedri,Pase,Mediocampista
+2026-04-27T11:46:23,Raphinha,Pase,Atacante
+2026-04-27T11:46:27,Lamine Yamal,Pase,Atacante
+2026-04-27T11:46:34,De Jong,Pase,Mediocampista
+2026-04-27T11:46:36,Gerard Martin,Pase,Defensa
+2026-04-27T11:46:51,Lamine Yamal,Pase,Atacante
+2026-04-27T11:46:56,Dani Olmo,Pase errado,Mediocampista
+2026-04-27T11:46:57,Dani Olmo,Perdida,Mediocampista
+2026-04-27T11:47:08,Equipo rival,Recuperacion,Rival
+2026-04-27T11:47:53,Equipo rival,Pase,Rival
+2026-04-27T11:48:08,Equipo rival,Falta recibida,Rival
+2026-04-27T11:48:11,Cubarsi,Falta cometida,Defensa
+2026-04-27T11:48:27,Equipo rival,Pase,Rival
+2026-04-27T11:48:28,Equipo rival,Pase,Rival
+2026-04-27T11:48:33,Equipo rival,Pase,Rival
+2026-04-27T11:48:37,Equipo rival,Pase,Rival
+2026-04-27T11:48:51,Equipo rival,Pase errado,Rival
+2026-04-27T11:48:53,De Jong,Recuperacion,Mediocampista
+2026-04-27T11:48:58,De Jong,Pase,Mediocampista
+2026-04-27T11:49:13,Pedri,Pase,Mediocampista
+2026-04-27T11:49:24,Dani Olmo,Pase,Mediocampista
+2026-04-27T11:49:37,Lamine Yamal,Pase,Atacante
+2026-04-27T11:49:46,Ferran Torres,Regate,Atacante
+2026-04-27T11:49:49,Ferran Torres,Pase,Atacante
+2026-04-27T11:49:53,Raphinha,Pase,Atacante
+2026-04-27T11:49:57,De Jong,Pase,Mediocampista
+2026-04-27T11:50:00,Pedri,Pase,Mediocampista
+2026-04-27T11:50:13,Ferran Torres,Pase,Atacante
+2026-04-27T11:50:23,Lamine Yamal,Tiro a puerta,Atacante
+2026-04-27T11:50:24,Lamine Yamal,Gol,Atacante
+2026-04-28T13:44:51,Equipo rival,Pase,Rival
+2026-04-28T13:44:51,Equipo rival,Pase,Rival
+2026-04-28T13:45:27,Equipo rival,Perdida,Rival
+2026-04-28T13:45:41,Eric Garcia,Recuperacion,Defensa
+2026-04-28T13:46:17,Pedri,Recuperacion,Mediocampista
+2026-04-28T13:46:23,Pedri,Pase,Mediocampista
+2026-04-28T13:46:41,Raphinha,Tiro a puerta,Atacante
+2026-04-28T13:46:43,Raphinha,Gol,Atacante
+2026-04-28T13:47:29,Equipo rival,Perdida,Rival
+2026-04-28T13:48:18,Equipo rival,Pase,Rival
+2026-04-28T13:48:25,Equipo rival,Pase,Rival
+2026-04-28T13:48:42,Equipo rival,Pase errado,Rival
+2026-04-28T13:48:49,Gerard Martin,Recuperacion,Defensa
+2026-04-28T13:48:58,Raphinha,Pase,Atacante
+2026-04-28T13:49:06,Pedri,Pase errado,Mediocampista
+2026-04-28T13:49:07,Pedri,Perdida,Mediocampista
+2026-04-28T13:49:22,Ferran Torres,Recuperacion,Atacante
+2026-04-28T13:49:24,Ferran Torres,Pase,Atacante
+2026-04-28T13:49:37,Pedri,Pase,Mediocampista
+2026-04-28T13:49:39,Gerard Martin,Pase errado,Defensa
+2026-04-28T13:49:51,Equipo rival,Intercepcion,Rival
+2026-04-28T13:50:05,Gerard Martin,Pase,Defensa
+2026-04-28T13:50:10,I. Martinez,Pase,Defensa
+2026-04-28T13:50:14,Pedri,Pase,Mediocampista
+2026-04-28T13:50:22,De Jong,Pase,Mediocampista
+2026-04-28T13:50:30,Cubarsi,Pase,Defensa
+2026-04-28T13:50:37,Eric Garcia,Pase,Defensa
+2026-04-28T13:50:45,Lamine Yamal,Pase,Atacante
+2026-04-28T13:50:51,Eric Garcia,Pase,Defensa
+2026-04-28T13:50:55,Pedri,Pase,Mediocampista
+2026-04-28T13:51:02,Cubarsi,Pase,Defensa
+2026-04-28T13:51:07,Szczesny,Pase,Portero
+2026-04-28T13:51:28,I. Martinez,Pase,Defensa
+2026-04-28T13:51:37,Ferran Torres,Falta recibida,Atacante
+2026-04-28T13:51:40,Equipo rival,Falta cometida,Rival
+2026-04-28T13:51:42,Equipo rival,Tarjeta amarilla,Rival
+2026-04-28T13:56:22,Raphinha,Pase,Atacante
+2026-04-28T13:56:41,Cubarsi,Tiro,Defensa
+2026-04-28T13:56:58,Equipo rival,Intercepcion,Rival
+2026-04-28T13:57:37,Equipo rival,Pase errado,Rival
+2026-04-28T13:57:43,Cubarsi,Despeje,Defensa
+2026-04-28T13:57:52,Equipo rival,Despeje,Rival
+2026-04-28T13:57:56,Pedri,Recuperacion,Mediocampista
+2026-04-28T13:58:00,Pedri,Pase,Mediocampista
+2026-04-28T13:58:08,Cubarsi,Pase,Defensa
+2026-04-28T13:58:27,I. Martinez,Pase,Defensa
+2026-04-28T13:58:31,De Jong,Pase,Mediocampista
+2026-04-28T13:58:45,I. Martinez,Pase,Defensa
+2026-04-28T13:58:55,Ferran Torres,Perdida,Atacante
+2026-04-28T13:59:01,Equipo rival,Intercepcion,Rival
+2026-04-28T13:59:06,Equipo rival,Recuperacion,Rival
+2026-04-28T13:59:35,Equipo rival,Pase,Rival
+2026-04-28T13:59:36,Equipo rival,Pase,Rival
+2026-04-28T13:59:42,Equipo rival,Perdida,Rival
+2026-04-28T13:59:47,Cubarsi,Recuperacion,Defensa
+2026-04-28T14:00:37,De Jong,Pase,Mediocampista
+2026-04-28T14:00:44,I. Martinez,Pase,Defensa
+2026-04-28T14:00:59,Ferran Torres,Pase,Atacante
+2026-04-28T14:01:05,Pedri,Pase,Mediocampista
+2026-04-28T14:01:09,De Jong,Pase,Mediocampista
+2026-04-28T14:01:13,Pedri,Pase,Mediocampista
+2026-04-28T14:01:18,Gerard Martin,Pase,Defensa
+2026-04-28T14:01:38,Pedri,Pase,Mediocampista
+2026-04-28T14:01:42,I. Martinez,Pase,Defensa
+2026-04-28T14:01:52,Cubarsi,Pase,Defensa
+2026-04-28T14:01:57,Raphinha,Pase,Atacante
+2026-04-28T14:02:02,Equipo rival,Intercepcion,Rival
+2026-04-28T14:02:11,Raphinha,Pase,Atacante
+2026-04-28T14:02:19,Gerard Martin,Pase errado,Defensa
+2026-04-28T14:02:28,Equipo rival,Recuperacion,Rival
+2026-04-28T14:02:31,Gerard Martin,Perdida,Defensa
+2026-04-28T14:02:40,Equipo rival,Despeje,Rival
+2026-04-28T14:02:51,Szczesny,Despeje,Portero
+2026-04-28T14:03:08,Equipo rival,Pase,Rival
+2026-04-28T14:03:14,Equipo rival,Pase,Rival
+2026-04-28T14:03:17,Equipo rival,Pase,Rival
+2026-04-28T14:03:33,Equipo rival,Pase errado,Rival
+2026-04-28T14:03:34,Equipo rival,Perdida,Rival
+2026-04-28T14:03:38,Eric Garcia,Recuperacion,Defensa
+2026-04-28T14:03:41,Eric Garcia,Pase,Defensa
+2026-04-28T14:04:01,Lamine Yamal,Perdida,Atacante
+2026-04-28T14:04:05,Equipo rival,Recuperacion,Rival
+2026-04-28T14:04:14,Equipo rival,Pase,Rival
+2026-04-28T14:04:16,Equipo rival,Perdida,Rival
+2026-04-28T14:04:23,Szczesny,Recuperacion,Portero
+2026-04-28T14:04:29,Szczesny,Pase,Portero
+2026-04-28T14:04:34,Pedri,Pase,Mediocampista
+2026-04-28T14:04:46,I. Martinez,Pase,Defensa
+2026-04-28T14:04:52,Gerard Martin,Pase,Defensa
+2026-04-28T14:05:02,I. Martinez,Pase errado,Defensa
+2026-04-28T14:05:03,I. Martinez,Perdida,Defensa
+2026-04-28T14:06:00,Lamine Yamal,Pase,Atacante
+2026-04-28T14:06:05,Raphinha,Tiro,Atacante
+2026-04-28T14:06:45,Equipo rival,Pase errado,Rival
+2026-04-28T14:06:56,De Jong,Intercepcion,Mediocampista
+2026-04-28T14:07:24,Equipo rival,Pase,Rival
+2026-04-28T14:07:27,Equipo rival,Pase,Rival
+2026-04-28T14:08:21,Equipo rival,Pase,Rival
+2026-04-28T14:08:26,Equipo rival,Pase,Rival
+2026-04-28T14:08:35,Equipo rival,Perdida,Rival
+2026-04-28T14:08:38,Raphinha,Recuperacion,Atacante
+2026-04-28T14:08:48,Raphinha,Pase,Atacante
+2026-04-28T14:09:02,Ferran Torres,Pase,Atacante
+2026-04-28T14:09:41,Raphinha,Tiro a puerta,Atacante
+2026-04-28T14:09:42,Raphinha,Gol,Atacante
+2026-04-28T14:09:48,Equipo rival,Pase,Rival
+2026-04-28T14:09:48,Equipo rival,Pase,Rival
+2026-04-28T14:10:09,Equipo rival,Falta recibida,Rival
+2026-04-28T14:10:12,Dani Olmo,Falta cometida,Mediocampista
+2026-04-28T14:11:02,Equipo rival,Pase,Rival
+2026-04-28T14:11:08,Equipo rival,Pase,Rival
+2026-04-28T14:11:12,Equipo rival,Pase,Rival
+2026-04-28T14:11:27,Equipo rival,Pase errado,Rival
+2026-04-28T14:11:31,I. Martinez,Recuperacion,Defensa
+2026-04-28T14:11:33,I. Martinez,Pase,Defensa
+2026-04-28T14:11:43,Pedri,Pase,Mediocampista
+2026-04-28T14:11:54,Gerard Martin,Pase errado,Defensa
+2026-04-28T14:11:59,Equipo rival,Recuperacion,Rival
+2026-04-28T14:12:02,Gerard Martin,Perdida,Defensa
+2026-04-28T14:12:08,Equipo rival,Pase,Rival
+2026-04-28T14:12:18,Equipo rival,Pase errado,Rival
+2026-04-28T14:12:29,Cubarsi,Recuperacion,Defensa
+2026-04-28T14:12:33,De Jong,Pase,Mediocampista
+2026-04-28T14:12:51,Cubarsi,Pase errado,Defensa
+2026-04-28T14:13:05,De Jong,Pase,Mediocampista
+2026-04-28T14:13:13,Raphinha,Pase errado,Atacante
+2026-04-28T14:13:18,Equipo rival,Recuperacion,Rival
+2026-04-28T14:13:21,Equipo rival,Pase,Rival
+2026-04-28T14:13:23,Raphinha,Perdida,Atacante
+2026-04-28T14:13:31,Equipo rival,Pase,Rival
+2026-04-28T14:13:39,Equipo rival,Pase,Rival
+2026-04-28T14:13:53,Equipo rival,Regate,Rival
+2026-04-28T14:30:52,Equipo rival,Pase,Rival
+2026-04-28T14:30:58,Equipo rival,Pase errado,Rival
+2026-04-28T14:31:01,Lamine Yamal,Intercepcion,Atacante
+2026-04-28T14:31:24,Equipo rival,Pase,Rival
+2026-04-28T14:31:40,Eric Garcia,Recuperacion,Defensa
+2026-04-28T14:31:48,Equipo rival,Perdida,Rival
+2026-04-28T14:31:56,Lamine Yamal,Pase,Atacante
+2026-04-28T14:32:00,Pedri,Pase,Mediocampista
+2026-04-28T14:32:21,Gerard Martin,Pase,Defensa
+2026-04-28T14:32:28,Pedri,Pase,Mediocampista
+2026-04-28T14:32:35,De Jong,Pase,Mediocampista
+2026-04-28T14:32:47,Pedri,Pase,Mediocampista
+2026-04-28T14:32:52,Cubarsi,Pase,Defensa
+2026-04-28T14:32:56,I. Martinez,Pase,Defensa
+2026-04-28T14:33:02,Gerard Martin,Pase,Defensa
+2026-04-28T14:33:06,Raphinha,Pase,Atacante
+2026-04-28T14:33:10,I. Martinez,Pase,Defensa
+2026-04-28T14:33:13,Pedri,Pase,Mediocampista
+2026-04-28T14:33:20,I. Martinez,Pase,Defensa
+2026-04-28T14:33:29,Lamine Yamal,Pase,Atacante
+2026-04-28T14:33:34,Eric Garcia,Pase,Defensa
+2026-04-28T14:33:38,Lamine Yamal,Pase,Atacante
+2026-04-28T14:33:44,Eric Garcia,Pase,Defensa
+2026-04-28T14:33:50,Lamine Yamal,Regate,Atacante
+2026-04-28T14:33:53,Lamine Yamal,Pase,Atacante
+2026-04-28T14:33:57,Pedri,Pase,Mediocampista
+2026-04-28T14:34:16,Lamine Yamal,Pase,Atacante
+2026-04-28T14:34:30,Szczesny,Pase,Portero
+2026-04-28T14:34:37,I. Martinez,Pase,Defensa
+2026-04-28T14:34:48,Gerard Martin,Pase,Defensa
+2026-04-28T14:34:51,I. Martinez,Pase,Defensa
+2026-04-28T14:34:57,Ferran Torres,Pase,Atacante
+2026-04-28T14:35:00,Gerard Martin,Pase,Defensa
+2026-04-28T14:35:02,Ferran Torres,Pase,Atacante
+2026-04-28T14:35:08,I. Martinez,Pase,Defensa
+2026-04-28T14:35:16,I. Martinez,Pase,Defensa
+2026-04-28T14:35:25,Ferran Torres,Perdida,Atacante
+2026-04-28T14:35:29,Equipo rival,Recuperacion,Rival
+2026-04-28T14:35:33,Equipo rival,Pase,Rival
+2026-04-28T14:35:37,Equipo rival,Pase,Rival
+2026-04-28T14:35:42,Equipo rival,Pase,Rival
+2026-04-28T14:35:46,Equipo rival,Pase,Rival
+2026-04-28T14:35:53,Equipo rival,Pase,Rival
+2026-04-28T14:35:54,Equipo rival,Pase,Rival
+2026-04-28T14:35:56,Equipo rival,Pase,Rival
+2026-04-28T14:36:04,Equipo rival,Pase,Rival
+2026-04-28T14:36:20,Equipo rival,Pase errado,Rival
+2026-04-28T14:36:25,Gerard Martin,Intercepcion,Defensa
+2026-04-28T14:36:29,Equipo rival,Pase,Rival
+2026-04-28T14:36:32,Equipo rival,Pase,Rival
+2026-04-30T21:45:32,Ferran Torres,Pase,Atacante
+2026-04-30T21:45:51,De Jong,Pase,Mediocampista
+2026-04-30T21:45:56,I. Martinez,Pase,Defensa
+2026-04-30T21:46:03,Gerard Martin,Pase,Defensa
+2026-04-30T21:46:13,I. Martinez,Pase,Defensa
+2026-04-30T21:46:28,Szczesny,Pase errado,Portero
+2026-04-30T21:46:29,Szczesny,Perdida,Portero
+2026-04-30T21:46:52,Equipo rival,Pase,Rival
+2026-04-30T21:46:55,Equipo rival,Pase,Rival
+2026-04-30T21:47:06,Equipo rival,Pase,Rival
+2026-04-30T21:47:19,Equipo rival,Pase errado,Rival
+2026-04-30T21:47:27,Equipo rival,Falta cometida,Rival
+2026-04-30T21:47:30,Eric Garcia,Falta recibida,Defensa
+2026-04-30T21:48:02,De Jong,Pase,Mediocampista
+2026-04-30T21:48:06,Cubarsi,Pase,Defensa
+2026-04-30T21:48:09,Szczesny,Pase,Portero
+2026-04-30T21:48:26,I. Martinez,Pase errado,Defensa
+2026-04-30T21:48:28,Equipo rival,Recuperacion,Rival
+2026-04-30T21:48:36,Equipo rival,Pase errado,Rival
+2026-04-30T21:48:50,De Jong,Intercepcion,Mediocampista
+2026-04-30T21:48:55,Equipo rival,Pase,Rival
+2026-04-30T21:49:00,Equipo rival,Pase,Rival
+2026-04-30T21:49:05,Equipo rival,Pase,Rival
+2026-04-30T21:50:08,I. Martinez,Pase,Defensa
+2026-04-30T21:50:17,Ferran Torres,Pase,Atacante
+2026-04-30T21:50:23,Raphinha,Perdida,Atacante
+2026-04-30T21:50:25,Equipo rival,Recuperacion,Rival
+2026-04-30T21:50:29,Equipo rival,Pase,Rival
+2026-04-30T21:50:41,Raphinha,Recuperacion,Atacante
+2026-04-30T21:50:42,Raphinha,Pase,Atacante
+2026-04-30T21:50:54,Pedri,Pase,Mediocampista
+2026-04-30T21:51:05,Raphinha,Pase,Atacante
+2026-04-30T21:51:12,Ferran Torres,Pase errado,Atacante
+2026-04-30T21:51:14,Equipo rival,Recuperacion,Rival
+2026-04-30T21:51:19,Ferran Torres,Perdida,Atacante
+2026-04-30T21:51:27,Equipo rival,Pase,Rival
+2026-04-30T21:51:33,Equipo rival,Pase,Rival
+2026-04-30T21:51:39,Equipo rival,Pase,Rival
+2026-04-30T21:51:41,Equipo rival,Pase,Rival
+2026-04-30T21:51:48,Equipo rival,Pase,Rival
+2026-04-30T21:51:53,Equipo rival,Pase,Rival
+2026-04-30T21:51:57,Equipo rival,Pase,Rival
+2026-04-30T21:52:01,Equipo rival,Pase,Rival
+2026-04-30T21:52:06,Equipo rival,Pase,Rival
+2026-04-30T21:52:11,Equipo rival,Perdida,Rival
+2026-04-30T21:52:15,Szczesny,Recuperacion,Portero
+2026-04-30T21:52:30,Szczesny,Pase,Portero
+2026-04-30T21:52:33,De Jong,Pase,Mediocampista
+2026-04-30T21:52:42,Eric Garcia,Pase,Defensa
+2026-04-30T21:52:47,Dani Olmo,Pase errado,Mediocampista
+2026-04-30T21:53:03,De Jong,Pase,Mediocampista
+2026-04-30T21:53:11,Cubarsi,Pase,Defensa
+2026-04-30T21:53:15,Lamine Yamal,Pase,Atacante
+2026-04-30T21:53:26,Dani Olmo,Pase,Mediocampista
+2026-04-30T21:53:32,Gerard Martin,Pase,Defensa
+2026-04-30T21:53:43,Raphinha,Regate,Atacante
+2026-04-30T21:53:50,Raphinha,Pase errado,Atacante
+2026-04-30T21:53:53,Equipo rival,Recuperacion,Rival
+2026-04-30T21:53:58,Equipo rival,Pase,Rival
+2026-04-30T21:54:03,Equipo rival,Pase,Rival
+2026-04-30T21:54:08,Equipo rival,Pase,Rival
+2026-04-30T21:54:37,De Jong,Recuperacion,Mediocampista
+2026-04-30T21:54:47,Pedri,Pase,Mediocampista
+2026-04-30T21:54:52,Equipo rival,Perdida,Rival
+2026-04-30T21:55:05,Raphinha,Pase,Atacante
+2026-04-30T21:55:20,Lamine Yamal,Tiro a puerta,Atacante
+2026-04-30T21:55:32,Pedri,Pase,Mediocampista
+2026-04-30T21:55:43,Lamine Yamal,Tiro,Atacante
+2026-04-30T21:55:47,Lamine Yamal,Perdida,Atacante
+2026-04-30T21:56:50,Equipo rival,Pase errado,Rival
+2026-04-30T21:56:53,Equipo rival,Perdida,Rival
+2026-04-30T21:56:57,I. Martinez,Recuperacion,Defensa
+2026-04-30T21:56:59,I. Martinez,Pase,Defensa
+2026-04-30T21:57:02,De Jong,Pase,Mediocampista
+2026-04-30T21:57:10,Gerard Martin,Pase,Defensa
+2026-04-30T21:57:17,Ferran Torres,Falta recibida,Atacante
+2026-04-30T21:57:21,Equipo rival,Falta cometida,Rival
+2026-04-30T21:57:30,Equipo rival,Tarjeta amarilla,Rival
+2026-04-30T22:16:55,Pedri,Pase,Mediocampista
+2026-04-30T22:16:59,Gerard Martin,Pase,Defensa
+2026-04-30T22:17:02,Raphinha,Pase,Atacante
+2026-04-30T22:17:07,Pedri,Pase,Mediocampista
+2026-04-30T22:17:15,I. Martinez,Pase,Defensa
+2026-04-30T22:17:24,Szczesny,Pase,Portero
+2026-04-30T22:17:40,Eric Garcia,Falta recibida,Defensa
+2026-04-30T22:17:43,Equipo rival,Falta cometida,Rival
+2026-04-30T22:18:23,Eric Garcia,Regate,Defensa
+2026-04-30T22:18:40,Szczesny,Pase,Portero
+2026-04-30T22:18:46,I. Martinez,Pase,Defensa
+2026-04-30T22:19:51,Equipo rival,Pase,Rival
+2026-04-30T22:19:56,Equipo rival,Pase,Rival
+2026-04-30T22:19:59,Equipo rival,Pase,Rival
+2026-04-30T22:20:03,Equipo rival,Pase,Rival
+2026-04-30T22:20:20,Gerard Martin,Falta cometida,Defensa
+2026-04-30T22:20:30,Equipo rival,Pase,Rival
+2026-04-30T22:20:32,Equipo rival,Pase,Rival
+2026-04-30T22:20:37,Equipo rival,Pase,Rival
+2026-04-30T22:20:48,Equipo rival,Pase,Rival
+2026-04-30T22:20:52,Equipo rival,Pase errado,Rival
+2026-04-30T22:20:57,Szczesny,Recuperacion,Portero
+2026-05-28T13:31:23,De Jong,Pase,Mediocampista
+2026-05-28T13:31:47,Dani Olmo,Pase,Mediocampista
+2026-05-28T13:31:55,De Jong,Pase,Mediocampista
+2026-05-28T13:31:58,Eric Garcia,Pase,Defensa
+2026-05-28T13:32:02,Dani Olmo,Pase,Mediocampista
+2026-05-28T13:32:05,Pedri,Pase,Mediocampista
+2026-05-28T13:32:12,Dani Olmo,Pase,Mediocampista
+2026-05-28T13:32:18,Raphinha,Pase,Atacante
+2026-05-28T13:32:27,Dani Olmo,Tiro,Mediocampista
+2026-05-28T13:32:37,Dani Olmo,Perdida,Mediocampista
+2026-05-28T13:33:23,Equipo rival,Pase,Rival
+2026-05-28T13:33:37,Equipo rival,Pase errado,Rival
+2026-05-28T13:33:45,De Jong,Intercepcion,Mediocampista
+2026-05-28T13:34:04,I. Martinez,Falta cometida,Defensa
+2026-05-28T13:34:06,I. Martinez,Tarjeta amarilla,Defensa
+2026-05-28T13:34:09,Equipo rival,Falta recibida,Rival
+2026-05-28T13:39:16,Equipo rival,Pase,Rival
+2026-05-28T13:39:46,Equipo rival,Pase,Rival
+2026-05-28T13:39:59,Equipo rival,Pase,Rival
+2026-05-28T13:40:06,Equipo rival,Pase,Rival
+2026-05-28T13:40:18,Equipo rival,Pase errado,Rival
+2026-05-28T13:40:23,Eric Garcia,Recuperacion,Defensa
+2026-05-28T13:40:26,Eric Garcia,Pase,Defensa
+2026-05-28T13:40:31,Equipo rival,Perdida,Rival
+2026-05-28T13:40:43,Lamine Yamal,Regate,Atacante
+2026-05-28T13:40:53,Lamine Yamal,Perdida,Atacante
+2026-05-28T13:40:58,Equipo rival,Recuperacion,Rival
+2026-05-28T13:41:16,Equipo rival,Pase,Rival
+2026-05-28T13:41:19,Equipo rival,Tiro,Rival
+2026-05-28T13:41:22,Equipo rival,Perdida,Rival
+2026-05-28T13:46:36,Szczesny,Pase,Portero
+2026-05-28T13:46:40,Ferran Torres,Pase,Atacante
+2026-05-28T13:46:50,Pedri,Pase,Mediocampista
+2026-05-28T13:46:54,Balde,Pase,Defensa
+2026-05-28T13:46:59,I. Martinez,Despeje,Defensa
+2026-05-28T13:47:09,Dani Olmo,Pase,Mediocampista
+2026-05-28T13:47:13,Equipo rival,Intercepcion,Rival
+2026-05-28T13:47:32,Lamine Yamal,Pase errado,Atacante
+2026-05-28T13:47:33,Lamine Yamal,Perdida,Atacante
+2026-05-28T13:48:37,Equipo rival,Pase,Rival
+2026-05-28T13:48:38,Equipo rival,Pase,Rival
+2026-05-28T13:48:48,Equipo rival,Regate,Rival
+2026-05-28T13:48:55,Equipo rival,Regate,Rival
+2026-05-28T13:48:58,Equipo rival,Pase,Rival
+2026-05-28T13:49:10,Equipo rival,Pase errado,Rival
+2026-05-28T13:49:20,Christensen,Recuperacion,Defensa
+2026-05-28T13:49:24,Christensen,Despeje,Defensa
+2026-05-28T13:49:25,Christensen,Perdida,Defensa
+2026-05-28T13:49:45,Equipo rival,Pase,Rival
+2026-05-28T13:49:46,Equipo rival,Pase,Rival
+2026-05-28T13:49:52,Equipo rival,Pase,Rival
+2026-05-28T13:50:19,Equipo rival,Perdida,Rival
+2026-05-28T13:50:23,De Jong,Recuperacion,Mediocampista
+2026-05-28T13:50:29,De Jong,Pase,Mediocampista
+2026-05-28T13:50:40,Eric Garcia,Pase,Defensa
+2026-05-28T13:51:12,Lamine Yamal,Perdida,Atacante
+2026-05-28T13:51:15,Equipo rival,Recuperacion,Rival
+2026-05-28T13:51:24,Equipo rival,Pase,Rival
+2026-05-28T13:51:30,Equipo rival,Pase,Rival
+2026-05-28T13:51:39,Equipo rival,Pase,Rival
+2026-05-28T13:51:41,Equipo rival,Pase,Rival
+2026-05-28T13:51:51,Equipo rival,Pase,Rival
+2026-05-28T13:51:55,Equipo rival,Pase,Rival
+2026-05-28T13:52:05,Equipo rival,Tiro a puerta,Rival
+2026-05-28T13:52:17,Szczesny,Blocaje,Portero
+2026-05-28T13:52:27,Szczesny,Recuperacion,Portero
+2026-05-28T13:52:51,Equipo rival,Perdida,Rival
+2026-05-28T13:53:29,Szczesny,Pase,Portero
+2026-05-28T13:53:37,Balde,Pase,Defensa
+2026-05-28T13:53:42,Pedri,Pase,Mediocampista
+2026-05-28T13:53:56,Balde,Pase,Defensa
+2026-05-28T13:54:00,Raphinha,Pase errado,Atacante
+2026-05-28T13:54:09,Equipo rival,Despeje,Rival
+2026-05-28T13:54:11,Equipo rival,Recuperacion,Rival
+2026-05-28T13:54:15,Raphinha,Perdida,Atacante
+2026-05-28T13:54:31,Pedri,Recuperacion,Mediocampista
+2026-05-28T13:54:33,Equipo rival,Perdida,Rival
+2026-05-28T13:54:37,Pedri,Pase,Mediocampista
+2026-05-28T13:54:41,De Jong,Pase,Mediocampista
+2026-05-28T13:54:46,Raphinha,Pase,Atacante
+2026-05-28T13:54:50,De Jong,Pase,Mediocampista
+2026-05-28T13:54:53,Pedri,Pase,Mediocampista
+2026-05-28T13:55:00,De Jong,Pase,Mediocampista
+2026-05-28T13:55:12,Raphinha,Pase,Atacante
+2026-05-28T13:55:20,Balde,Pase,Defensa
+2026-05-28T13:55:26,De Jong,Pase,Mediocampista
+2026-05-28T13:55:29,Dani Olmo,Pase,Mediocampista
+2026-05-28T13:55:32,I. Martinez,Pase,Defensa
+2026-05-28T13:55:36,Balde,Pase,Defensa
+2026-05-28T13:55:44,Ferran Torres,Pase,Atacante
+2026-05-28T13:55:55,Pedri,Pase,Mediocampista
+2026-05-28T13:56:03,Ferran Torres,Pase errado,Atacante
+2026-05-28T13:56:05,Ferran Torres,Perdida,Atacante
+2026-05-28T13:56:09,Equipo rival,Recuperacion,Rival
+2026-05-28T13:56:22,Equipo rival,Pase errado,Rival
+2026-05-28T13:56:42,Eric Garcia,Intercepcion,Defensa
+2026-05-28T13:56:52,Equipo rival,Pase errado,Rival
+2026-05-28T13:56:57,Christensen,Intercepcion,Defensa
+2026-05-28T13:57:20,Equipo rival,Pase,Rival
+2026-05-28T13:57:32,Equipo rival,Pase,Rival
+2026-05-28T13:57:55,Equipo rival,Pase,Rival
+2026-05-28T13:57:57,Equipo rival,Pase,Rival
+2026-05-28T13:58:48,Raphinha,Falta cometida,Atacante
+2026-05-28T13:58:50,Equipo rival,Falta recibida,Rival

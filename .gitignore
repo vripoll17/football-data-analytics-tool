@@ -40,13 +40,3 @@ Thumbs.db
 # Local environment files
 .env
 .env.*
-
-# Generated project outputs
-data/*
-!data/.gitkeep
-reports/*
-!reports/.gitkeep
-
-# User-created teams (local test data)
-teams/*
-!teams/.gitkeep

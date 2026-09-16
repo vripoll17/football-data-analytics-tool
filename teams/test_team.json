@@ -1,0 +1,18 @@
+{
+  "team_name": "",
+  "players": [
+    {"name": "Szczesny", "number": 25, "position": "Portero"},
+    {"name": "Eric Garcia", "number": 24, "position": "Defensa"},
+    {"name": "Cubarsi", "number": 2, "position": "Defensa"},
+    {"name": "I. Martinez", "number": 5, "position": "Defensa"},
+    {"name": "Gerard Martin", "number": 35, "position": "Defensa"},
+    {"name": "De Jong", "number": 21, "position": "Mediocampista"},
+    {"name": "Pedri", "number": 8, "position": "Mediocampista"},
+    {"name": "Lamine Yamal", "number": 19, "position": "Atacante"},
+    {"name": "Dani Olmo", "number": 20, "position": "Mediocampista"},
+    {"name": "Raphinha", "number": 11, "position": "Atacante"},
+    {"name": "Ferran Torres", "number": 7, "position": "Atacante"},
+    {"name": "Christensen", "number": 15, "position": "Defensa"},
+    {"name": "Balde", "number": 3, "position": "Defensa"}
+  ]
+}
