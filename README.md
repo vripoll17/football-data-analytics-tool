@@ -224,3 +224,4 @@ This project is useful for:
 - export to Excel or JSON
 - improve the user interface
 - add filters by player, match phase, or field zone
+- translate everything to english
