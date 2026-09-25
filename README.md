@@ -30,6 +30,8 @@ The report generator is in [report_generator.py](report_generator.py). From a ma
 
 - comparison of action volume by team
 - radar analysis with relative performance metrics
+- player statistics table
+- top 3 players statistics charts
 
 ### 3. Action configuration
 Available actions are centralized in [utils/config.py](utils/config.py). This makes it easy to expand or adjust the event catalog.

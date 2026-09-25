@@ -17,7 +17,7 @@ from reportlab.lib.enums import TA_CENTER
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.lib.units import cm
-from reportlab.platypus import Image, PageBreak, Paragraph, SimpleDocTemplate, Spacer
+from reportlab.platypus import Image, PageBreak, Paragraph, SimpleDocTemplate, Spacer, Table, TableStyle
 
 from utils.config import ACTIONS
 
@@ -192,7 +192,111 @@ def generate_radar_chart(data: pd.DataFrame, output_dir: Path) -> Path:
     plt.close(fig)
     return plot_path
 
-def build_pdf(plot_path: Path, radar_path: Path, output_pdf: Path):
+def create_player_stats_table(data: pd.DataFrame):
+    metrics = ["Pase", "Tiro", "Tiro a puerta", "Gol", "Recuperacion", "Intercepcion", "Regate", "Perdida"]
+    filtered = data.copy()
+    filtered["player"] = filtered["player"].astype(str).str.strip()
+    filtered = filtered[~filtered["player"].str.lower().isin(["equipo rival", "rival"])].copy()
+
+    if filtered.empty:
+        return [["Jugador", "Pase", "Tiro", "Tiro a puerta", "Gol", "Recuperacion", "Intercepcion", "Regate", "Perdida"],
+                ["-", "0", "0", "0", "0", "0", "0", "0", "0"]]
+
+    player_stats = (
+        filtered[filtered["action"].isin(metrics)]
+        .groupby(["player", "action"])
+        .size()
+        .unstack(fill_value=0)
+        .reindex(metrics, axis=1, fill_value=0)
+        .reset_index()
+    )
+
+    player_stats["total"] = player_stats[metrics].sum(axis=1)
+    player_stats = player_stats.sort_values("total", ascending=False).drop(columns=["total"]).reset_index(drop=True)
+
+    table_data = [["Jugador", "Pase", "Tiro", "Tiro a puerta", "Gol", "Recuperacion", "Intercepcion", "Regate", "Perdida"]]
+    for _, row in player_stats.iterrows():
+        table_data.append([
+            row["player"],
+            int(row.get("Pase", 0)),
+            int(row.get("Tiro", 0)),
+            int(row.get("Tiro a puerta", 0)),
+            int(row.get("Gol", 0)),
+            int(row.get("Recuperacion", 0)),
+            int(row.get("Intercepcion", 0)),
+            int(row.get("Regate", 0)),
+            int(row.get("Perdida", 0)),
+        ])
+
+    return table_data
+
+
+def generate_top3_players_by_action_chart(data: pd.DataFrame, output_dir: Path) -> Path:
+    team_data = data[data["team"] == "Mi Equipo"].copy()
+    team_data["player"] = team_data["player"].astype(str).str.strip()
+    team_data = team_data[team_data["player"].str.lower() != "equipo rival"]
+
+    table_metrics = ["Pase", "Tiro", "Tiro a puerta", "Gol", "Recuperacion", "Intercepcion", "Regate", "Perdida"]
+    actions = [action for action in table_metrics if action in team_data["action"].unique()]
+    if not actions:
+        fig, ax = plt.subplots(figsize=(10, 5))
+        ax.text(0.5, 0.5, "Sin datos de jugadores para mostrar", ha="center", va="center")
+        ax.axis("off")
+        plot_path = output_dir / "top3_players_by_action.png"
+        fig.savefig(plot_path, dpi=200, bbox_inches="tight")
+        plt.close(fig)
+        return plot_path
+
+    n_actions = len(actions)
+    n_cols = 3
+    n_rows = max(1, (n_actions + n_cols - 1) // n_cols)
+
+    fig, axes = plt.subplots(n_rows, n_cols, figsize=(18, 5 * n_rows))
+    if n_actions == 1:
+        axes = [axes]
+    else:
+        axes = axes.flatten()
+
+    for ax, action in zip(axes, actions):
+        counts = (
+            team_data[team_data["action"] == action]
+            .groupby("player")
+            .size()
+            .reset_index(name="count")
+            .sort_values("count", ascending=False)
+            .head(3)
+            .sort_values("count", ascending=True)
+        )
+
+        if counts.empty:
+            ax.text(0.5, 0.5, f"{action}\nSin datos", ha="center", va="center")
+            ax.axis("off")
+            continue
+
+        players = counts["player"].tolist()
+        values = counts["count"].tolist()
+        colors = plt.cm.tab10(np.linspace(0, 1, len(players)))
+
+        ax.barh(players, values, color=colors, edgecolor="black")
+        ax.set_title(action, fontsize=10, fontweight="bold")
+        ax.set_xlabel("Conteo")
+        ax.invert_yaxis()
+        for i, v in enumerate(values):
+            ax.text(v + 0.2, i, str(v), va="center", fontsize=8)
+
+    for ax in axes[len(actions):]:
+        ax.axis("off")
+
+    fig.suptitle("TOP 3 JUGADORES POR ACCIÓN", fontsize=18, fontweight="bold", y=1.02)
+    fig.tight_layout(rect=[0, 0, 1, 0.96])
+
+    plot_path = output_dir / "top3_players_by_action.png"
+    fig.savefig(plot_path, dpi=200, bbox_inches="tight")
+    plt.close(fig)
+    return plot_path
+
+
+def build_pdf(plot_path: Path, radar_path: Path, top3_path: Path, data: pd.DataFrame, output_pdf: Path):
     output_pdf.parent.mkdir(parents=True, exist_ok=True)
     doc = SimpleDocTemplate(str(output_pdf), pagesize=A4, margins=(1*cm, 1*cm, 1*cm, 1*cm))
     styles = getSampleStyleSheet()
@@ -226,6 +330,28 @@ def build_pdf(plot_path: Path, radar_path: Path, output_pdf: Path):
     story.append(Paragraph("<i>* Escala porcentual (0 a 1) basada en las cinco metricas definidas.</i>", 
                  ParagraphStyle("Note", parent=styles["Normal"], alignment=TA_CENTER, fontSize=9)))
 
+    story.append(Spacer(1, 1*cm))
+    story.append(Paragraph("ESTADÍSTICAS POR JUGADOR", title_style))
+    story.append(Spacer(1, 0.5*cm))
+
+    table_data = create_player_stats_table(data)
+    table = Table(table_data, colWidths=[3.3*cm, 1.3*cm, 1.2*cm, 1.9*cm, 1.1*cm, 1.8*cm, 1.8*cm, 1.3*cm, 1.4*cm])
+    table.setStyle(TableStyle([
+        ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#0047AB")),
+        ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),
+        ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
+        ("ALIGN", (0, 0), (-1, -1), "CENTER"),
+        ("GRID", (0, 0), (-1, -1), 0.5, colors.grey),
+        ("ROWBACKGROUNDS", (0, 1), (-1, -1), [colors.whitesmoke, colors.white]),
+        ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+        ("FONTSIZE", (0, 0), (-1, -1), 7),
+    ]))
+    story.append(table)
+    story.append(Spacer(1, 1*cm))
+
+    story.append(Paragraph("TOP 3 JUGADORES POR ACCIÓN", title_style))
+    story.append(Image(str(top3_path), width=18*cm, height=12*cm))
+
     doc.build(story)
 
 def main():
@@ -240,9 +366,11 @@ def main():
         data = load_data(csv_path)
         
         with tempfile.TemporaryDirectory() as tmpdir:
-            plot_path = generate_tornado_chart(data, Path(tmpdir))
-            radar_path = generate_radar_chart(data, Path(tmpdir))
-            build_pdf(plot_path, radar_path, output_path)
+            temp_dir = Path(tmpdir)
+            plot_path = generate_tornado_chart(data, temp_dir)
+            radar_path = generate_radar_chart(data, temp_dir)
+            top3_path = generate_top3_players_by_action_chart(data, temp_dir)
+            build_pdf(plot_path, radar_path, top3_path, data, output_path)
             
         print(f"✅ Informe visual generado en: {output_path.absolute()}")
     except Exception as e:
