@@ -32,6 +32,7 @@ The report generator is in [report_generator.py](report_generator.py). From a ma
 - radar analysis with relative performance metrics
 - player statistics table
 - top 3 players statistics charts
+- AI-generated match analysis based on the calculated team and player statistics
 
 ### 3. Action configuration
 Available actions are centralized in [utils/config.py](utils/config.py). This makes it easy to expand or adjust the event catalog.
@@ -93,8 +94,16 @@ source .venv/bin/activate
 3. Install the requirements:
 
 ```bash
-pip install -r requirements.txt
+python -m pip install -r requirements.txt
 ```
+
+4. Configure a Google Gemini API key for the AI-generated match analysis. Create a `.env` file in the project root and add:
+
+```env
+GEMINI_API_KEY=your_google_gemini_api_key
+```
+
+You can obtain the key from [Google AI Studio](https://aistudio.google.com/app/apikey). Keep the key private and do not commit the `.env` file.
 
 ## How to use the logging app
 
@@ -201,6 +210,7 @@ The visual report includes:
 
 - comparative chart of action frequency by team
 - radar chart with percentage-based performance indicators
+- AI-generated analysis of the match
 - PDF export ready for analysis or presentation
 
 ## Use cases

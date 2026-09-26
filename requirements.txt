@@ -4,3 +4,5 @@ reportlab
 ipykernel
 notebook
 numpy
+google-genai
+python-dotenv
