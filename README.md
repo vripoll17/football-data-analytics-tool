@@ -45,12 +45,18 @@ football-data-analytics-tool/
 ├── notebooks/                 # analysis / exploration notebooks
 ├── reports/                   # generated PDFs
 ├── teams/                     # example team files in JSON/CSV
+├── ai/
+│   ├── __init__.py
+│   ├── analysis.py             # AI-generated match analysis
+│   └── prompts.py              # prompts used for the AI analysis
 ├── utils/
 │   ├── __init__.py
 │   ├── config.py              # list of possible actions
+│   ├── data_processing.py      # data cleaning and statistics calculation
 │   └── math.py                # simple math utilities
+├── charts.py                   # chart generation functions
 ├── log_data.py                # graphical interface for event logging
-├── report_generator.py        # PDF report generation with charts
+├── report_generator.py         # PDF report generation with charts and AI analysis
 ├── requirements.txt           # project dependencies
 ├── README.md                  # project documentation
 └── .gitignore                 # git configuration (if present in the repo)
@@ -61,7 +67,7 @@ football-data-analytics-tool/
 You need Python 3.10+ and the project dependencies:
 
 ```bash
-pip install -r requirements.txt
+python -m pip install -r requirements.txt
 ```
 
 Main dependencies:
@@ -72,6 +78,8 @@ Main dependencies:
 - numpy
 - ipykernel
 - notebook
+- google-genai
+- python-dotenv
 
 ## Installation
 
