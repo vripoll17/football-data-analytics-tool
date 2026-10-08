@@ -53,7 +53,7 @@ def _create_offensive_kpis(teams_df: pd.DataFrame) -> Table:
     ]
     table = Table(
         [
-            ["DRIBBLES", "LOSSES"],
+            ["REGATES", "PÉRDIDAS"],
             [Paragraph(str(value), KPI_VALUE_STYLE) for value in values],
         ],
         colWidths=[8.25 * cm] * 2,
@@ -86,7 +86,7 @@ def _create_defensive_kpis(teams_df: pd.DataFrame) -> Table:
     ]
     table = Table(
         [
-            ["FOULS COMMITTED", "YELLOW CARDS", "RED CARDS"],
+            ["FALTAS COMETIDAS", "TARJETAS AMARILLAS", "TARJETAS ROJAS"],
             [Paragraph(str(value), KPI_VALUE_STYLE) for value in values],
         ],
         colWidths=[5.5 * cm] * 3,
@@ -205,6 +205,11 @@ def build_pdf(
     team_name, rival_name = get_team_names(teams_df)
     my_team_goals = int(teams_df.loc[teams_df["team"] == "My Team", "gol"].sum())
     rival_goals = int(teams_df.loc[teams_df["team"] == "Rival Team", "gol"].sum())
+    teams_report_df = teams_df.copy()
+    teams_report_df["team"] = teams_report_df["team"].replace({
+        "My Team": team_name,
+        "Rival Team": rival_name,
+    })
 
     main_statistics = Table(
         create_main_statistics_table(teams_df),
@@ -230,27 +235,27 @@ def build_pdf(
     ]))
     story = [
         Spacer(1, 0.5 * cm),
-        Paragraph("VISUAL REPORT", title_style),
+        Paragraph("INFORME VISUAL", title_style),
         score_card,
         Spacer(1, 0.65 * cm),
-        Paragraph("1. Main team statistics", section_style),
+        Paragraph("1. Estadísticas principales de los equipos", section_style),
         Spacer(1, 0.15 * cm),
         main_statistics,
         Spacer(1, 0.55 * cm),
-        Paragraph("1.1. Key findings", subsection_style),
+        Paragraph("1.1. Conclusiones principales", subsection_style),
         Spacer(1, 0.2 * cm),
         *_analysis_flowables(main_statistics_analysis, styles),
         PageBreak(),
         Spacer(1, 0.5 * cm),
-        Paragraph("2. Team comparison", section_style),
+        Paragraph("2. Comparación de equipos", section_style),
         Spacer(1, 0.3 * cm),
-        Paragraph("2.1. Game volume", subsection_style),
+        Paragraph("2.1. Volumen de juego", subsection_style),
         Spacer(1, 0.2 * cm),
         Image(str(tornado_path), width=19 * cm, height=13 * cm),
         Spacer(1, 0.5 * cm),
         *_analysis_flowables(game_volume_analysis, styles),
         PageBreak(),
-        Paragraph("2.2. Game performance", subsection_style),
+        Paragraph("2.2. Rendimiento en el juego", subsection_style),
         Spacer(1, 0.5 * cm),
         Image(str(radar_path), width=17 * cm, height=12 * cm),
         Spacer(1, 1 * cm),
@@ -258,7 +263,7 @@ def build_pdf(
         Spacer(1, 1 * cm),
         Paragraph("<i>* Escala porcentual (0 a 1) basada en las métricas definidas.</i>", note_style),
         PageBreak(),
-        Paragraph("3. Offensive analysis", section_style),
+        Paragraph("3. Análisis ofensivo", section_style),
         Spacer(1, 0.65 * cm),
         Image(str(shot_conversion_path), width=17 * cm, height=10 * cm),
         Spacer(1, 0.8 * cm),
@@ -266,11 +271,11 @@ def build_pdf(
         Spacer(1, 0.8 * cm),
         _create_offensive_kpis(teams_df),
         Spacer(1, 0.5 * cm),
-        Paragraph("3.1. Offensive findings", subsection_style),
+        Paragraph("3.1. Conclusiones ofensivas", subsection_style),
         Spacer(1, 0.2 * cm),
         *_analysis_flowables(offensive_analysis, styles),
         PageBreak(),
-        Paragraph("4. Defensive analysis", section_style),
+        Paragraph("4. Análisis defensivo", section_style),
         Spacer(1, 0.4 * cm),
         Image(str(defensive_actions_path), width=17 * cm, height=10 * cm),
         Spacer(1, 0.8 * cm),
@@ -278,28 +283,28 @@ def build_pdf(
         Spacer(1, 0.8 * cm),
         _create_defensive_kpis(teams_df),
         Spacer(1, 0.5 * cm),
-        Paragraph("4.1. Defensive findings", subsection_style),
+        Paragraph("4.1. Conclusiones defensivas", subsection_style),
         Spacer(1, 0.2 * cm),
         *_analysis_flowables(defensive_analysis, styles),
         PageBreak(),
-        Paragraph("5. Player statistics", section_style),
+        Paragraph("5. Estadísticas de los jugadores", section_style),
         Spacer(1, 0.4 * cm),
-        Paragraph("5.1. Top 3 players for offensive action", subsection_style),
+        Paragraph("5.1. Top 3 jugadores en acciones ofensivas", subsection_style),
         Image(str(top3_path), width=18 * cm, height=12 * cm),
         PageBreak(),
-        Paragraph("5.2. Top 3 players for defensive action", subsection_style),
+        Paragraph("5.2. Top 3 jugadores en acciones defensivas", subsection_style),
         Image(str(top3_defensive_path), width=18 * cm, height=12 * cm),
         PageBreak(),
-        Paragraph("6. Strengths, weaknesses and recommendations", section_style),
+        Paragraph("6. Fortalezas, debilidades y recomendaciones", section_style),
         Spacer(1, 0.3 * cm),
         *_analysis_flowables(strenghts_weaknesses_recommendations_analysis, styles),
         PageBreak(),
-        Paragraph("7. Detailed data", section_style),
+        Paragraph("7. Datos detallados", section_style),
         Spacer(1, 0.3 * cm),
-        Paragraph("7.1. Teams data", subsection_style),
-        _create_dataframe_table(teams_df),
+        Paragraph("7.1. Datos de los equipos", subsection_style),
+        _create_dataframe_table(teams_report_df),
         Spacer(1, 0.5 * cm),
-        Paragraph("7.2.Players data", subsection_style),
+        Paragraph("7.2. Datos de los jugadores", subsection_style),
         _create_dataframe_table(players_df),
     ]
     document.build(story, onFirstPage=_draw_page_footer, onLaterPages=_draw_page_footer)

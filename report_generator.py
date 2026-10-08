@@ -27,7 +27,8 @@ from utils.data_processing import (
     calculate_radar_metrics, 
     prepare_game_performance_statistics_for_ai,
     prepare_offensive_statistics_for_ai,
-    prepare_defensive_statistics_for_ai
+    prepare_defensive_statistics_for_ai,
+    get_team_names,
 )
 
 from ai.analysis import (
@@ -77,34 +78,35 @@ def main() -> None:
 
     try:
         teams_df, players_df = load_dataframes(csv_path)
+        team_names = get_team_names(teams_df)
         with tempfile.TemporaryDirectory() as temporary_directory:
             output_dir = Path(temporary_directory)
 
             main_statistics_for_ai = prepare_main_statistics_for_ai(teams_df)
-            main_statistics_analysis = generate_main_statistics_analysis(main_statistics_for_ai)
+            main_statistics_analysis = generate_main_statistics_analysis(main_statistics_for_ai, team_names)
 
             tornado_path = generate_tornado_chart(teams_df, output_dir)
 
             game_volume_statistics_for_ai = teams_df.to_dict(orient="records")
-            game_volume_analysis = generate_game_volume_analysis(game_volume_statistics_for_ai)
+            game_volume_analysis = generate_game_volume_analysis(game_volume_statistics_for_ai, team_names)
 
             radar_path = generate_radar_chart(teams_df, output_dir)
             
             game_performance_statistics = calculate_radar_metrics(teams_df)
             game_performance_statistics_for_ai = prepare_game_performance_statistics_for_ai(game_performance_statistics)
-            game_performance_analysis = generate_game_performance_analysis(game_performance_statistics_for_ai)           
+            game_performance_analysis = generate_game_performance_analysis(game_performance_statistics_for_ai, team_names)
             
             shot_conversion_path = generate_shot_conversion_chart(teams_df, output_dir)
             pass_accuracy_pie_path = generate_pass_accuracy_pie_chart(teams_df, output_dir)
 
             offensive_statistics_for_ai = prepare_offensive_statistics_for_ai(teams_df)
-            offensive_analysis = generate_offensive_analysis(offensive_statistics_for_ai)
+            offensive_analysis = generate_offensive_analysis(offensive_statistics_for_ai, team_names)
 
             defensive_actions_path = generate_defensive_actions_chart(teams_df, output_dir)
             goalkeeper_actions_path = generate_goalkeeper_actions_chart(teams_df, output_dir)
 
             defensive_statistics_for_ai = prepare_defensive_statistics_for_ai(teams_df)
-            defensive_analysis = generate_defensive_analysis(defensive_statistics_for_ai)
+            defensive_analysis = generate_defensive_analysis(defensive_statistics_for_ai, team_names)
 
             top3_offensive_path = generate_top3_players_offensive_chart(players_df, output_dir)
             top3_defensive_path = generate_top3_players_defensive_chart(players_df, output_dir)
@@ -122,7 +124,10 @@ def main() -> None:
                 "players_data": players_df.to_dict(orient="records")
             }
 
-            strenghts_weaknesses_recommendations_analysis = generate_strengths_weaknesses_recommendations_analysis(strengths_weaknesses_recommendations_data_for_ai)
+            strenghts_weaknesses_recommendations_analysis = generate_strengths_weaknesses_recommendations_analysis(
+                strengths_weaknesses_recommendations_data_for_ai,
+                team_names,
+            )
 
             build_pdf(
                 tornado_path,

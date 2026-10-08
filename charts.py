@@ -35,13 +35,13 @@ def _visible_team_names(teams_df: pd.DataFrame) -> tuple[str, str]:
 
 def create_main_statistics_table(teams_df: pd.DataFrame) -> list[list[object]]:
     main_metrics = [
-        ("Goals", "gol"),
-        ("Shots", "tiro"),
-        ("Shots on target", "tiro a puerta"),
-        ("Passes", "pase"),
-        ("Recoveries", "recuperacion"),
-        ("Interceptions", "intercepcion"),
-        ("Losses", "perdida"),
+        ("Goles", "gol"),
+        ("Tiros", "tiro"),
+        ("Tiros a puerta", "tiro a puerta"),
+        ("Pases", "pase"),
+        ("Recuperaciones", "recuperacion"),
+        ("Intercepciones", "intercepcion"),
+        ("Pérdidas", "perdida"),
     ]
 
     def team_metric_row(team: str) -> list[object]:
@@ -51,7 +51,7 @@ def create_main_statistics_table(teams_df: pd.DataFrame) -> list[list[object]]:
         return [display_name] + [int(team_row.get(column, 0)) for _, column in main_metrics]
 
     return [
-        ["Team"] + [label for label, _ in main_metrics],
+        ["Equipo"] + [label for label, _ in main_metrics],
         team_metric_row(MY_TEAM),
         team_metric_row(RIVAL_TEAM),
     ]
@@ -132,7 +132,7 @@ def generate_goalkeeper_actions_chart(teams_df: pd.DataFrame, output_dir: Path) 
     team_name, rival_name = _visible_team_names(teams_df)
     my_team = _team_row(teams_df, MY_TEAM)
     rival = _team_row(teams_df, RIVAL_TEAM)
-    labels = [f"{rival_name} shots on target", "Saves", "Blocks", f"{rival_name} goals"]
+    labels = [f"Tiros a puerta de {rival_name}", "Paradas", "Blocajes", f"Goles de {rival_name}"]
     values = [
         _value(rival, "tiro a puerta"),
         _value(my_team, "parada"),
@@ -147,8 +147,8 @@ def generate_goalkeeper_actions_chart(teams_df: pd.DataFrame, output_dir: Path) 
     ax.bar_label(bars, padding=3, fontsize=9)
     ax.set_yticks(positions)
     ax.set_yticklabels(labels)
-    ax.set_xlabel("Number of actions")
-    ax.set_title(f"GOALKEEPER PERFORMANCE - {team_name}", fontsize=15, fontweight="bold")
+    ax.set_xlabel("Número de acciones")
+    ax.set_title(f"RENDIMIENTO DEL PORTERO - {team_name}", fontsize=15, fontweight="bold")
     ax.grid(axis="x", alpha=0.25)
     ax.set_axisbelow(True)
     for spine in ["top", "right"]:
@@ -198,7 +198,7 @@ def generate_shot_conversion_chart(teams_df: pd.DataFrame, output_dir: Path) -> 
     my_total_shots = _value(my_team, "tiro") + my_shots_on_target
     my_goals = _value(my_team, "gol")
 
-    levels = ["Shots", "On Target", "Goals"]
+    levels = ["Tiros", "A puerta", "Goles"]
     fig, ax = plt.subplots(figsize=(8, 5))
     ax.plot(
         levels,
@@ -207,8 +207,8 @@ def generate_shot_conversion_chart(teams_df: pd.DataFrame, output_dir: Path) -> 
         label=team_name,
         color="tab:red",
     )
-    ax.set_title(f"Shot Conversion - {team_name}")
-    ax.set_ylabel("Count")
+    ax.set_title(f"Conversión de tiros - {team_name}")
+    ax.set_ylabel("Conteo")
 
     plot_path = output_dir / "shot_conversion_visual.png"
     fig.savefig(plot_path, dpi=200, bbox_inches="tight")
@@ -218,7 +218,7 @@ def generate_shot_conversion_chart(teams_df: pd.DataFrame, output_dir: Path) -> 
 
 def generate_pass_accuracy_pie_chart(teams_df: pd.DataFrame, output_dir: Path) -> Path:
     team_name, _ = _visible_team_names(teams_df)
-    labels = ["Passes", "Failed passes"]
+    labels = ["Pases", "Pases errados"]
     colors = ["#0047AB", "#B22222"]
 
     team_row = _team_row(teams_df, MY_TEAM)
@@ -295,7 +295,7 @@ def generate_top3_players_offensive_chart(players_df: pd.DataFrame, output_dir: 
         players_df,
         output_dir,
         ["tiro", "tiro a puerta", "pase", "pase errado", "regate", "perdida"],
-        "TOP 3 PLAYERS FOR OFFENSIVE ACTION",
+        "TOP 3 JUGADORES EN ACCIONES OFENSIVAS",
         "top3_players_offensive.png",
     )
 
@@ -305,7 +305,7 @@ def generate_top3_players_defensive_chart(players_df: pd.DataFrame, output_dir: 
         players_df,
         output_dir,
         ["recuperacion", "despeje", "intercepcion", "falta cometida"],
-        "TOP 3 PLAYERS FOR DEFENSIVE ACTION",
+        "TOP 3 JUGADORES EN ACCIONES DEFENSIVAS",
         "top3_players_defensive.png",
         columns=2,
     )

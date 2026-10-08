@@ -10,6 +10,7 @@ This project combines a graphical interface for logging match actions and a PDF 
 - Allows loading a team file with players and positions
 - Creates or loads a match CSV file
 - Stores events with timestamp, player, action, and position
+- Stores the team and rival names as match metadata in the CSV header
 - Generates a visual dashboard-style PDF with:
   - tornado chart for action comparison
   - radar chart comparing the team and the rival
@@ -21,13 +22,17 @@ This project combines a graphical interface for logging match actions and a PDF 
    - top 3 player charts for offensive and defensive actions
    - AI-generated analysis, strengths, weaknesses, and recommendations
 
+The generated report is written in Spanish, including its titles, chart labels,
+tables, and AI-generated analysis. A demo report is available at
+[reports/Visual_Report_barça_madrid_2425.pdf](reports/Visual_Report_barça_madrid_2425.pdf).
+
 ## Main features
 
 ### 1. Event logger
 The main application is in [log_data.py](log_data.py). It allows:
 
 - selecting a team file in JSON or CSV format
-- creating a new match file in CSV format
+- creating a new match file in CSV format and entering the rival team name
 - loading an existing match file
 - choosing a player and an action from the predefined list
 - automatically registering events with a timestamp
@@ -129,6 +134,10 @@ OPENROUTER_API_KEY=your_openrouter_api_key
 
 Keep the key private and do not commit the `.env` file.
 
+The AI prompt includes the names of both teams and requests the analysis in
+Spanish. The language is currently defined by `AI_LANGUAGE` in
+[ai/analysis.py](ai/analysis.py).
+
 ## How to use the logging app
 
 Run:
@@ -145,6 +154,8 @@ python log_data.py
 
 2. Create or load a match
    - creating a match generates a new CSV inside the data/ folder
+   - the team name is read from the selected team file
+   - the rival team name is requested in a popup
 
 3. Select a player
    - you can also choose the option "Equipo rival" (Rival Team)
@@ -159,6 +170,18 @@ python log_data.py
    - position
 
 The resulting CSV is then used for analysis and report generation.
+
+The match names are stored once at the beginning of newly created CSV files,
+before the event header and action rows:
+
+```csv
+# team_name,FC Barcelona
+# rival_name,Mallorca
+timestamp,player,action,position
+```
+
+Older CSV files without these metadata lines remain supported and use generic
+team labels in the report.
 
 ## Team file format
 
@@ -251,6 +274,7 @@ This project is useful for:
 - quick tactical analysis of a session or match
 - preparation of visual reports for post-match review
 - comparison between the home team and the rival
+- generation of a Spanish match report with team-specific names and analysis
 
 ## Current limitations
 
@@ -266,4 +290,3 @@ This project is useful for:
 - export to Excel or JSON
 - improve the user interface
 - add filters by player, match phase, or field zone
-- translate everything to english
