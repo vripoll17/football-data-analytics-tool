@@ -6,3 +6,4 @@ notebook
 numpy
 python-dotenv
 requests
+csv

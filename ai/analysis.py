@@ -18,6 +18,9 @@ load_dotenv()
 
 api_key = os.getenv("OPENROUTER_API_KEY")
 
+print("API key cargada:", bool(api_key))
+print("Longitud:", len(api_key) if api_key else 0)
+
 model = "inclusionai/ling-3.0-flash-sante:free"
 OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
 

@@ -12,6 +12,7 @@ from reportlab.lib.units import cm
 from reportlab.platypus import Image, LongTable, PageBreak, Paragraph, SimpleDocTemplate, Spacer, Table, TableStyle
 
 from charts import create_main_statistics_table
+from utils.data_processing import get_team_names
 
 
 NAVY = colors.HexColor("#12304A")
@@ -201,6 +202,7 @@ def build_pdf(
     note_style = ParagraphStyle("Note", parent=styles["Normal"], alignment=TA_CENTER, fontSize=8.5, leading=11, textColor=MUTED)
     score_style = ParagraphStyle("Score", parent=styles["Heading2"], alignment=TA_CENTER, fontName="Helvetica-Bold", fontSize=20, leading=24, textColor=colors.white)
 
+    team_name, rival_name = get_team_names(teams_df)
     my_team_goals = int(teams_df.loc[teams_df["team"] == "My Team", "gol"].sum())
     rival_goals = int(teams_df.loc[teams_df["team"] == "Rival Team", "gol"].sum())
 
@@ -219,7 +221,7 @@ def build_pdf(
         ("FONTSIZE", (0, 0), (-1, -1), 8),
         ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
     ]))
-    score_card = Table([[Paragraph(f"MY TEAM  <font size=25>{my_team_goals}</font>  -  <font size=25>{rival_goals}</font>  RIVAL TEAM", score_style)]], colWidths=[17.2 * cm], rowHeights=[1.25 * cm])
+    score_card = Table([[Paragraph(f"{team_name}  <font size=25>{my_team_goals}</font>  -  <font size=25>{rival_goals}</font>  {rival_name}", score_style)]], colWidths=[17.2 * cm], rowHeights=[1.25 * cm])
     score_card.setStyle(TableStyle([
         ("BACKGROUND", (0, 0), (-1, -1), NAVY),
         ("ALIGN", (0, 0), (-1, -1), "CENTER"),

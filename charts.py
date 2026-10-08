@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-from utils.data_processing import calculate_radar_metrics
+from utils.data_processing import calculate_radar_metrics, get_team_names
 
 
 TEAM_COLUMN = "team"
@@ -29,6 +29,10 @@ def _team_row(teams_df: pd.DataFrame, team: str) -> pd.Series:
     return rows.iloc[0] if not rows.empty else pd.Series(dtype=float)
 
 
+def _visible_team_names(teams_df: pd.DataFrame) -> tuple[str, str]:
+    return get_team_names(teams_df)
+
+
 def create_main_statistics_table(teams_df: pd.DataFrame) -> list[list[object]]:
     main_metrics = [
         ("Goals", "gol"),
@@ -42,7 +46,9 @@ def create_main_statistics_table(teams_df: pd.DataFrame) -> list[list[object]]:
 
     def team_metric_row(team: str) -> list[object]:
         team_row = _team_row(teams_df, team)
-        return [team] + [int(team_row.get(column, 0)) for _, column in main_metrics]
+        team_name, rival_name = _visible_team_names(teams_df)
+        display_name = team_name if team == MY_TEAM else rival_name
+        return [display_name] + [int(team_row.get(column, 0)) for _, column in main_metrics]
 
     return [
         ["Team"] + [label for label, _ in main_metrics],
@@ -52,6 +58,7 @@ def create_main_statistics_table(teams_df: pd.DataFrame) -> list[list[object]]:
 
 
 def generate_tornado_chart(teams_df: pd.DataFrame, output_dir: Path) -> Path:
+    team_name, rival_name = _visible_team_names(teams_df)
     actions = _action_columns(teams_df)
     team_row = _team_row(teams_df, MY_TEAM)
     rival_row = _team_row(teams_df, RIVAL_TEAM)
@@ -68,8 +75,8 @@ def generate_tornado_chart(teams_df: pd.DataFrame, output_dir: Path) -> Path:
     my_normalized = np.sqrt(my_values)
     rival_normalized = np.sqrt(rival_values)
 
-    ax.barh(y, -my_normalized, color="#0047AB", label="Mi Equipo", alpha=0.8)
-    ax.barh(y, rival_normalized, color="#B22222", label="Rival", alpha=0.8)
+    ax.barh(y, -my_normalized, color="#0047AB", label=team_name, alpha=0.8)
+    ax.barh(y, rival_normalized, color="#B22222", label=rival_name, alpha=0.8)
     for index, (my_value, rival_value) in enumerate(zip(my_values, rival_values)):
         if my_value > 0:
             ax.text(-my_normalized[index] - 0.2, index, str(my_value), va="center", ha="right", fontsize=10, fontweight="bold", color="#0047AB")
@@ -84,7 +91,8 @@ def generate_tornado_chart(teams_df: pd.DataFrame, output_dir: Path) -> Path:
     ax.set_xticks([])
     for spine in ["left", "right", "top", "bottom"]:
         ax.spines[spine].set_visible(False)
-    ax.set_title("COMPARATIVA DE RENDIMIENTO: MI EQUIPO vs RIVAL", pad=40, fontsize=18, fontweight="bold")
+    ax.set_title(f"COMPARATIVA DE RENDIMIENTO: {team_name} vs {rival_name}", pad=40, fontsize=18, fontweight="bold")
+    ax.legend(frameon=False, loc="upper center", bbox_to_anchor=(0.5, 1.08), ncol=2)
 
     plot_path = output_dir / "tornado_visual.png"
     fig.savefig(plot_path, dpi=200, bbox_inches="tight")
@@ -93,6 +101,7 @@ def generate_tornado_chart(teams_df: pd.DataFrame, output_dir: Path) -> Path:
 
 
 def generate_defensive_actions_chart(teams_df: pd.DataFrame, output_dir: Path) -> Path:
+    team_name, _ = _visible_team_names(teams_df)
     actions = ["recuperacion", "despeje", "intercepcion"]
     action_labels = ["Recuperaciones", "Despejes", "Intercepciones"]
     my_team = _team_row(teams_df, MY_TEAM)
@@ -106,7 +115,7 @@ def generate_defensive_actions_chart(teams_df: pd.DataFrame, output_dir: Path) -
     ax.set_xticks(positions)
     ax.set_xticklabels(action_labels)
     ax.set_ylabel("Número de acciones")
-    ax.set_title("VOLUMEN DE ACCIONES DEFENSIVAS - MI EQUIPO", fontsize=15, fontweight="bold")
+    ax.set_title(f"VOLUMEN DE ACCIONES DEFENSIVAS - {team_name}", fontsize=15, fontweight="bold")
     ax.grid(axis="y", alpha=0.25)
     ax.set_axisbelow(True)
     for spine in ["top", "right"]:
@@ -120,9 +129,10 @@ def generate_defensive_actions_chart(teams_df: pd.DataFrame, output_dir: Path) -
 
 
 def generate_goalkeeper_actions_chart(teams_df: pd.DataFrame, output_dir: Path) -> Path:
+    team_name, rival_name = _visible_team_names(teams_df)
     my_team = _team_row(teams_df, MY_TEAM)
     rival = _team_row(teams_df, RIVAL_TEAM)
-    labels = ["Rival shots on target", "Saves", "Blocks", "Rival goals"]
+    labels = [f"{rival_name} shots on target", "Saves", "Blocks", f"{rival_name} goals"]
     values = [
         _value(rival, "tiro a puerta"),
         _value(my_team, "parada"),
@@ -138,7 +148,7 @@ def generate_goalkeeper_actions_chart(teams_df: pd.DataFrame, output_dir: Path) 
     ax.set_yticks(positions)
     ax.set_yticklabels(labels)
     ax.set_xlabel("Number of actions")
-    ax.set_title("GOALKEEPER PERFORMANCE - MY TEAM", fontsize=15, fontweight="bold")
+    ax.set_title(f"GOALKEEPER PERFORMANCE - {team_name}", fontsize=15, fontweight="bold")
     ax.grid(axis="x", alpha=0.25)
     ax.set_axisbelow(True)
     for spine in ["top", "right"]:
@@ -152,6 +162,7 @@ def generate_goalkeeper_actions_chart(teams_df: pd.DataFrame, output_dir: Path) 
 
 
 def generate_radar_chart(teams_df: pd.DataFrame, output_dir: Path) -> Path:
+    team_name, rival_name = _visible_team_names(teams_df)
     my_values, rival_values, labels = calculate_radar_metrics(teams_df)
 
     angles = np.linspace(0, 2 * np.pi, len(labels), endpoint=False).tolist()
@@ -160,9 +171,9 @@ def generate_radar_chart(teams_df: pd.DataFrame, output_dir: Path) -> Path:
     rival_plot = rival_values + rival_values[:1]
 
     fig, ax = plt.subplots(figsize=(8, 8), subplot_kw={"polar": True})
-    ax.plot(angles, my_plot, color="#0047AB", linewidth=2, label="Mi Equipo")
+    ax.plot(angles, my_plot, color="#0047AB", linewidth=2, label=team_name)
     ax.fill(angles, my_plot, color="#0047AB", alpha=0.2)
-    ax.plot(angles, rival_plot, color="#B22222", linewidth=2, label="Rival")
+    ax.plot(angles, rival_plot, color="#B22222", linewidth=2, label=rival_name)
     ax.fill(angles, rival_plot, color="#B22222", alpha=0.2)
     ax.set_theta_offset(np.pi / 2)
     ax.set_theta_direction(-1)
@@ -170,7 +181,7 @@ def generate_radar_chart(teams_df: pd.DataFrame, output_dir: Path) -> Path:
     ax.set_ylim(0, 1)
     ax.set_yticks([])
     ax.grid(color="#cccccc", linestyle="--", linewidth=0.6)
-    ax.set_title("COMPARATIVA TELARAÑA: MI EQUIPO vs RIVAL", pad=30, fontsize=14, fontweight="bold")
+    ax.set_title(f"COMPARATIVA TELARAÑA: {team_name} vs {rival_name}", pad=30, fontsize=14, fontweight="bold")
     ax.legend(loc="upper right", bbox_to_anchor=(1.15, 1.15), frameon=False)
 
     plot_path = output_dir / "radar_visual.png"
@@ -180,6 +191,7 @@ def generate_radar_chart(teams_df: pd.DataFrame, output_dir: Path) -> Path:
 
 
 def generate_shot_conversion_chart(teams_df: pd.DataFrame, output_dir: Path) -> Path:
+    team_name, _ = _visible_team_names(teams_df)
     my_team = _team_row(teams_df, MY_TEAM)
 
     my_shots_on_target = _value(my_team, "tiro a puerta")
@@ -192,10 +204,10 @@ def generate_shot_conversion_chart(teams_df: pd.DataFrame, output_dir: Path) -> 
         levels,
         [my_total_shots, my_shots_on_target, my_goals],
         marker="o",
-        label="Mi Equipo",
+        label=team_name,
         color="tab:red",
     )
-    ax.set_title("Shot Conversion")
+    ax.set_title(f"Shot Conversion - {team_name}")
     ax.set_ylabel("Count")
 
     plot_path = output_dir / "shot_conversion_visual.png"
@@ -205,6 +217,7 @@ def generate_shot_conversion_chart(teams_df: pd.DataFrame, output_dir: Path) -> 
 
 
 def generate_pass_accuracy_pie_chart(teams_df: pd.DataFrame, output_dir: Path) -> Path:
+    team_name, _ = _visible_team_names(teams_df)
     labels = ["Passes", "Failed passes"]
     colors = ["#0047AB", "#B22222"]
 
@@ -226,7 +239,7 @@ def generate_pass_accuracy_pie_chart(teams_df: pd.DataFrame, output_dir: Path) -
             startangle=90,
             wedgeprops={"edgecolor": "white"},
         )
-    ax.set_title("Mi Equipo")
+    ax.set_title(team_name)
 
     fig.suptitle("PORCENTAJE DE PASES Y PASES ERRADOS", fontsize=16, fontweight="bold")
     fig.tight_layout()

@@ -37,7 +37,7 @@ def calculate_player_stats(df):
     return players_df
 
 
-def calculate_match_stats(df):
+def calculate_match_stats(df, team_name: str = "My Team", rival_name: str = "Rival Team"):
     # create a new DataFrame to store the stats for each team
     teams_df = pd.DataFrame() 
 
@@ -58,7 +58,16 @@ def calculate_match_stats(df):
         else:
             teams_df.loc[teams_df["team"] == "My Team", action] += count
 
+    teams_df.attrs["team_name"] = team_name
+    teams_df.attrs["rival_name"] = rival_name
     return teams_df
+
+
+def get_team_names(teams_df: pd.DataFrame) -> tuple[str, str]:
+    return (
+        teams_df.attrs.get("team_name", "My Team"),
+        teams_df.attrs.get("rival_name", "Rival Team"),
+    )
 
 def prepare_main_statistics_for_ai(teams_df: pd.DataFrame) -> dict[str, int]:
     main_metrics = [
@@ -73,12 +82,13 @@ def prepare_main_statistics_for_ai(teams_df: pd.DataFrame) -> dict[str, int]:
 
     my_team_stats = teams_df.loc[teams_df["team"] == "My Team"].iloc[0]
     rival_team_stats = teams_df.loc[teams_df["team"] == "Rival Team"].iloc[0]
+    team_name, rival_name = get_team_names(teams_df)
 
     main_statistics_for_ai = {
-        f"My Team {label}": int(my_team_stats.get(column, 0)) for label, column in main_metrics
+        f"{team_name} {label}": int(my_team_stats.get(column, 0)) for label, column in main_metrics
     }
     main_statistics_for_ai.update({
-        f"Rival Team {label}": int(rival_team_stats.get(column, 0)) for label, column in main_metrics
+        f"{rival_name} {label}": int(rival_team_stats.get(column, 0)) for label, column in main_metrics
     })
 
     return main_statistics_for_ai

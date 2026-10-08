@@ -3,7 +3,7 @@ import csv
 import json
 from datetime import datetime
 import tkinter as tk
-from tkinter import filedialog, messagebox, ttk
+from tkinter import filedialog, messagebox, simpledialog, ttk
 from utils.config import ACTIONS
 
 class EventLoggerApp:
@@ -16,6 +16,8 @@ class EventLoggerApp:
 		self.match_file: Path | None = None
 		self.players: list[str] = []
 		self.player_positions: dict[str, str] = {}
+		self.team_name = "My Team"
+		self.rival_team_name = "Rival Team"
 		self.rival_label = "Equipo rival"
 		self.match_headers: list[str] = ["timestamp", "player", "action"]
 		self.selected_player: str | None = None
@@ -135,6 +137,7 @@ class EventLoggerApp:
 
 		try:
 			self.players, self.player_positions = self._load_players(selected_path)
+			self.team_name = self._load_team_name(selected_path)
 		except Exception as exc:
 			messagebox.showerror("Load Error", f"Could not read players: {exc}")
 			return
@@ -173,11 +176,21 @@ class EventLoggerApp:
 		if not selected:
 			return
 
+		rival_team_name = simpledialog.askstring(
+			title="Rival team",
+			prompt="Nombre del equipo rival:",
+			parent=self.root,
+		)
+		if not rival_team_name or not rival_team_name.strip():
+			self.event_status_var.set("Enter a rival team name")
+			return
+		self.rival_team_name = rival_team_name.strip()
+
 		match_path = Path(selected)
-		self._create_empty_match_csv(match_path)
+		self._create_empty_match_csv(match_path, self.team_name, self.rival_team_name)
 
 		self.match_file = match_path
-		self.match_headers = ["timestamp", "player", "action", "position"]
+		self.match_headers = self._read_match_headers(match_path)
 		self.match_file_var.set(str(match_path))
 
 		print("\n=== Match Created ===")
@@ -205,6 +218,9 @@ class EventLoggerApp:
 			return
 
 		self.match_file = match_path
+		metadata = self._read_match_metadata(match_path)
+		self.team_name = metadata.get("team_name", self.team_name)
+		self.rival_team_name = metadata.get("rival_name", self.rival_team_name)
 		self.match_headers = self._read_match_headers(match_path)
 		if "position" not in self.match_headers:
 			self._add_match_column(match_path, "position")
@@ -294,9 +310,11 @@ class EventLoggerApp:
 
 		self.event_status_var.set(f"Last event: {self.selected_player} - {action}")
 
-	def _create_empty_match_csv(self, match_path: Path) -> None:
+	def _create_empty_match_csv(self, match_path: Path, team_name: str, rival_name: str) -> None:
 		with match_path.open("w", encoding="utf-8", newline="") as f:
 			writer = csv.writer(f)
+			writer.writerow(["# team_name", team_name])
+			writer.writerow(["# rival_name", rival_name])
 			writer.writerow(["timestamp", "player", "action", "position"])
 
 	def _add_match_column(self, match_path: Path, column_name: str) -> None:
@@ -306,8 +324,11 @@ class EventLoggerApp:
 		if not rows:
 			rows = [["timestamp", "player", "action", column_name]]
 		else:
-			rows[0].append(column_name)
-			for idx in range(1, len(rows)):
+			header_index = next((idx for idx, row in enumerate(rows) if row and not row[0].startswith("#")), None)
+			if header_index is None:
+				raise ValueError("Match CSV has no headers")
+			rows[header_index].append(column_name)
+			for idx in range(header_index + 1, len(rows)):
 				rows[idx].append("")
 
 		with match_path.open("w", encoding="utf-8", newline="") as f:
@@ -317,7 +338,7 @@ class EventLoggerApp:
 	def _read_match_headers(self, match_path: Path) -> list[str]:
 		with match_path.open("r", encoding="utf-8", newline="") as f:
 			reader = csv.reader(f)
-			headers = next(reader, None)
+			headers = next((row for row in reader if row and not row[0].startswith("#")), None)
 
 		if not headers:
 			raise ValueError("Match CSV has no headers")
@@ -328,6 +349,17 @@ class EventLoggerApp:
 			raise ValueError("Match CSV must include headers: timestamp, player, action")
 
 		return normalized
+
+	def _read_match_metadata(self, match_path: Path) -> dict[str, str]:
+		metadata: dict[str, str] = {}
+		with match_path.open("r", encoding="utf-8", newline="") as f:
+			for row in csv.reader(f):
+				if not row or not row[0].startswith("#"):
+					break
+				key = row[0][1:].strip()
+				if len(row) > 1 and row[1].strip():
+					metadata[key] = row[1].strip()
+		return metadata
 
 	def _build_event_row(self, timestamp: str, player: str, action: str, position: str = "") -> list[str]:
 		values = {
@@ -410,6 +442,16 @@ class EventLoggerApp:
 					positions[name] = str(row.get(position_header, "")).strip() if position_header else ""
 
 		return players, positions
+
+	def _load_team_name(self, team_file: Path) -> str:
+		if team_file.suffix.lower() == ".json":
+			with team_file.open("r", encoding="utf-8") as f:
+				data = json.load(f)
+			if isinstance(data, dict):
+				team_name = str(data.get("team_name", "")).strip()
+				if team_name:
+					return team_name
+		return "My Team"
 
 
 def main() -> None:

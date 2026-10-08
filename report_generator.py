@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import csv
 import tempfile
 from pathlib import Path
 import pandas as pd
@@ -44,10 +45,27 @@ def load_dataframes(csv_path: str | Path) -> tuple[pd.DataFrame, pd.DataFrame]:
     if not csv_file.exists():
         raise FileNotFoundError(f"El archivo CSV no existe: {csv_file}")
 
-    cleaned_df = clean_data(pd.read_csv(csv_file))
-    teams_df = calculate_match_stats(cleaned_df)
+    metadata = _read_match_metadata(csv_file)
+    cleaned_df = clean_data(pd.read_csv(csv_file, comment="#"))
+    teams_df = calculate_match_stats(
+        cleaned_df,
+        metadata.get("team_name", "My Team"),
+        metadata.get("rival_name", "Rival Team"),
+    )
     players_df = calculate_player_stats(cleaned_df)
     return teams_df, players_df
+
+
+def _read_match_metadata(csv_file: Path) -> dict[str, str]:
+    metadata: dict[str, str] = {}
+    with csv_file.open("r", encoding="utf-8", newline="") as file:
+        for row in csv.reader(file):
+            if not row or not row[0].startswith("#"):
+                break
+            key = row[0][1:].strip()
+            if len(row) > 1 and row[1].strip():
+                metadata[key] = row[1].strip()
+    return metadata
 
 
 def main() -> None:
