@@ -8,6 +8,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
+from utils.data_processing import calculate_radar_metrics
+
 
 TEAM_COLUMN = "team"
 MY_TEAM = "My Team"
@@ -25,6 +27,28 @@ def _value(data: pd.Series, action: str) -> int:
 def _team_row(teams_df: pd.DataFrame, team: str) -> pd.Series:
     rows = teams_df[teams_df[TEAM_COLUMN] == team]
     return rows.iloc[0] if not rows.empty else pd.Series(dtype=float)
+
+
+def create_main_statistics_table(teams_df: pd.DataFrame) -> list[list[object]]:
+    main_metrics = [
+        ("Goals", "gol"),
+        ("Shots", "tiro"),
+        ("Shots on target", "tiro a puerta"),
+        ("Passes", "pase"),
+        ("Recoveries", "recuperacion"),
+        ("Interceptions", "intercepcion"),
+        ("Losses", "perdida"),
+    ]
+
+    def team_metric_row(team: str) -> list[object]:
+        team_row = _team_row(teams_df, team)
+        return [team] + [int(team_row.get(column, 0)) for _, column in main_metrics]
+
+    return [
+        ["Team"] + [label for label, _ in main_metrics],
+        team_metric_row(MY_TEAM),
+        team_metric_row(RIVAL_TEAM),
+    ]
 
 
 def generate_tornado_chart(teams_df: pd.DataFrame, output_dir: Path) -> Path:
@@ -68,48 +92,67 @@ def generate_tornado_chart(teams_df: pd.DataFrame, output_dir: Path) -> Path:
     return plot_path
 
 
-def generate_radar_chart(teams_df: pd.DataFrame, output_dir: Path) -> Path:
+def generate_defensive_actions_chart(teams_df: pd.DataFrame, output_dir: Path) -> Path:
+    actions = ["recuperacion", "despeje", "intercepcion"]
+    action_labels = ["Recuperaciones", "Despejes", "Intercepciones"]
+    my_team = _team_row(teams_df, MY_TEAM)
+    my_values = [_value(my_team, action) for action in actions]
+
+    positions = np.arange(len(actions))
+    fig, ax = plt.subplots(figsize=(9, 5.5))
+    my_bars = ax.bar(positions, my_values, color="#176B87", width=0.55)
+
+    ax.bar_label(my_bars, padding=3, fontsize=9)
+    ax.set_xticks(positions)
+    ax.set_xticklabels(action_labels)
+    ax.set_ylabel("Número de acciones")
+    ax.set_title("VOLUMEN DE ACCIONES DEFENSIVAS - MI EQUIPO", fontsize=15, fontweight="bold")
+    ax.grid(axis="y", alpha=0.25)
+    ax.set_axisbelow(True)
+    for spine in ["top", "right"]:
+        ax.spines[spine].set_visible(False)
+    fig.tight_layout()
+
+    plot_path = output_dir / "defensive_actions_visual.png"
+    fig.savefig(plot_path, dpi=200, bbox_inches="tight")
+    plt.close(fig)
+    return plot_path
+
+
+def generate_goalkeeper_actions_chart(teams_df: pd.DataFrame, output_dir: Path) -> Path:
     my_team = _team_row(teams_df, MY_TEAM)
     rival = _team_row(teams_df, RIVAL_TEAM)
-
-    def ratio(numerator: int, denominator: int) -> float:
-        return numerator / denominator if denominator > 0 else 0.0
-
-    my_passes = _value(my_team, "pase")
-    my_failed_passes = _value(my_team, "pase errado")
-    rival_passes = _value(rival, "pase")
-    rival_failed_passes = _value(rival, "pase errado")
-    my_shots = _value(my_team, "tiro")
-    my_shots_on_target = _value(my_team, "tiro a puerta")
-    rival_shots = _value(rival, "tiro")
-    rival_shots_on_target = _value(rival, "tiro a puerta")
-    my_defensive_actions = sum(_value(my_team, action) for action in ["recuperacion", "despeje", "intercepcion"])
-    rival_defensive_actions = sum(_value(rival, action) for action in ["recuperacion", "despeje", "intercepcion"])
-
-    my_values = [
-        ratio(my_passes, my_passes + my_failed_passes),
-        ratio(my_shots_on_target, my_shots + my_shots_on_target),
-        ratio(_value(my_team, "gol"), my_shots + my_shots_on_target),
-        ratio(_value(my_team, "recuperacion"), my_defensive_actions),
-        ratio(_value(my_team, "parada") + _value(my_team, "blocaje"), rival_shots_on_target),
-        ratio(_value(my_team, "perdida"), my_passes + _value(my_team, "regate") + my_shots),
+    labels = ["Rival shots on target", "Saves", "Blocks", "Rival goals"]
+    values = [
+        _value(rival, "tiro a puerta"),
+        _value(my_team, "parada"),
+        _value(my_team, "blocaje"),
+        _value(rival, "gol"),
     ]
-    rival_values = [
-        ratio(rival_passes, rival_passes + rival_failed_passes),
-        ratio(rival_shots_on_target, rival_shots + rival_shots_on_target),
-        ratio(_value(rival, "gol"), rival_shots + rival_shots_on_target),
-        ratio(_value(rival, "recuperacion"), rival_defensive_actions),
-        ratio(_value(rival, "parada") + _value(rival, "blocaje"), my_shots_on_target),
-        ratio(_value(rival, "perdida"), rival_passes + _value(rival, "regate") + rival_shots),
-    ]
-    labels = [
-        "% Pases acertados",
-        "% Tiros a puerta",
-        "% Goles por tiro",
-        "% Recuperaciones por accion defensiva",
-        "% Paradas+blocajes sobre tiros rivales",
-        "% Perdidas por accion ofensiva",
-    ]
+
+    positions = np.arange(len(labels))
+    fig, ax = plt.subplots(figsize=(9, 5.5))
+    bars = ax.barh(positions, values, color=["#B22222", "#176B87", "#176B87", "#B22222"])
+
+    ax.bar_label(bars, padding=3, fontsize=9)
+    ax.set_yticks(positions)
+    ax.set_yticklabels(labels)
+    ax.set_xlabel("Number of actions")
+    ax.set_title("GOALKEEPER PERFORMANCE - MY TEAM", fontsize=15, fontweight="bold")
+    ax.grid(axis="x", alpha=0.25)
+    ax.set_axisbelow(True)
+    for spine in ["top", "right"]:
+        ax.spines[spine].set_visible(False)
+    fig.tight_layout()
+
+    plot_path = output_dir / "goalkeeper_actions_visual.png"
+    fig.savefig(plot_path, dpi=200, bbox_inches="tight")
+    plt.close(fig)
+    return plot_path
+
+
+def generate_radar_chart(teams_df: pd.DataFrame, output_dir: Path) -> Path:
+    my_values, rival_values, labels = calculate_radar_metrics(teams_df)
 
     angles = np.linspace(0, 2 * np.pi, len(labels), endpoint=False).tolist()
     angles += angles[:1]
@@ -136,20 +179,75 @@ def generate_radar_chart(teams_df: pd.DataFrame, output_dir: Path) -> Path:
     return plot_path
 
 
-def generate_top3_players_by_action_chart(players_df: pd.DataFrame, output_dir: Path) -> Path:
-    selected_metrics = [
-        "tiro",
-        "tiro a puerta",
-        "pase",
-        "regate",
-        "recuperacion",
-        "intercepcion",
-        "perdida",
-        "falta cometida",
-    ]
-    metrics = [action for action in selected_metrics if action in players_df.columns]
-    rows = max(1, (len(metrics) + 2) // 3)
-    fig, axes = plt.subplots(rows, 3, figsize=(18, 5 * rows), squeeze=False)
+def generate_shot_conversion_chart(teams_df: pd.DataFrame, output_dir: Path) -> Path:
+    my_team = _team_row(teams_df, MY_TEAM)
+
+    my_shots_on_target = _value(my_team, "tiro a puerta")
+    my_total_shots = _value(my_team, "tiro") + my_shots_on_target
+    my_goals = _value(my_team, "gol")
+
+    levels = ["Shots", "On Target", "Goals"]
+    fig, ax = plt.subplots(figsize=(8, 5))
+    ax.plot(
+        levels,
+        [my_total_shots, my_shots_on_target, my_goals],
+        marker="o",
+        label="Mi Equipo",
+        color="tab:red",
+    )
+    ax.set_title("Shot Conversion")
+    ax.set_ylabel("Count")
+
+    plot_path = output_dir / "shot_conversion_visual.png"
+    fig.savefig(plot_path, dpi=200, bbox_inches="tight")
+    plt.close(fig)
+    return plot_path
+
+
+def generate_pass_accuracy_pie_chart(teams_df: pd.DataFrame, output_dir: Path) -> Path:
+    labels = ["Passes", "Failed passes"]
+    colors = ["#0047AB", "#B22222"]
+
+    team_row = _team_row(teams_df, MY_TEAM)
+    passes = _value(team_row, "pase")
+    failed_passes = _value(team_row, "pase errado")
+    values = [passes, failed_passes]
+
+    fig, ax = plt.subplots(figsize=(6, 5))
+    if sum(values) == 0:
+        ax.text(0.5, 0.5, "Sin datos", ha="center", va="center")
+        ax.axis("off")
+    else:
+        ax.pie(
+            values,
+            labels=labels,
+            colors=colors,
+            autopct="%1.1f%%",
+            startangle=90,
+            wedgeprops={"edgecolor": "white"},
+        )
+    ax.set_title("Mi Equipo")
+
+    fig.suptitle("PORCENTAJE DE PASES Y PASES ERRADOS", fontsize=16, fontweight="bold")
+    fig.tight_layout()
+
+    plot_path = output_dir / "pass_accuracy_pie_visual.png"
+    fig.savefig(plot_path, dpi=200, bbox_inches="tight")
+    plt.close(fig)
+    return plot_path
+
+
+def _generate_top3_players_chart(
+    players_df: pd.DataFrame,
+    output_dir: Path,
+    actions: list[str],
+    title: str,
+    filename: str,
+    columns: int = 3,
+) -> Path:
+    metrics = [action for action in actions if action in players_df.columns]
+    rows = max(1, (len(metrics) + columns - 1) // columns)
+    fig, axes = plt.subplots(rows, columns, figsize=(6 * columns, 5 * rows), squeeze=False)
     axes_flat = axes.flatten()
 
     for ax, action in zip(axes_flat, metrics):
@@ -161,21 +259,43 @@ def generate_top3_players_by_action_chart(players_df: pd.DataFrame, output_dir: 
             continue
 
         values = counts[action].tolist()
-        ax.barh(counts["player"], values, color=plt.cm.tab10(np.linspace(0, 1, len(values))), edgecolor="black")
+        bars = ax.bar(counts["player"], values, color=plt.cm.tab10(np.linspace(0, 1, len(values))), edgecolor="black")
         ax.set_title(action.capitalize(), fontsize=10, fontweight="bold")
-        ax.set_xlabel("Conteo")
-        for index, value in enumerate(values):
-            ax.text(value + 0.2, index, str(value), va="center", fontsize=8)
+        ax.set_ylabel("Conteo")
+        ax.tick_params(axis="x", labelrotation=30)
+        for bar, value in zip(bars, values):
+            ax.text(bar.get_x() + bar.get_width() / 2, value + 0.2, str(value), ha="center", fontsize=8)
 
     for ax in axes_flat[len(metrics):]:
         ax.axis("off")
-    fig.suptitle("TOP 3 JUGADORES POR ACCIÓN", fontsize=18, fontweight="bold", y=1.02)
+    fig.suptitle(title, fontsize=18, fontweight="bold", y=1.02)
     fig.tight_layout(rect=[0, 0, 1, 0.96])
 
-    plot_path = output_dir / "top3_players_by_action.png"
+    plot_path = output_dir / filename
     fig.savefig(plot_path, dpi=200, bbox_inches="tight")
     plt.close(fig)
     return plot_path
+
+
+def generate_top3_players_offensive_chart(players_df: pd.DataFrame, output_dir: Path) -> Path:
+    return _generate_top3_players_chart(
+        players_df,
+        output_dir,
+        ["tiro", "tiro a puerta", "pase", "pase errado", "regate", "perdida"],
+        "TOP 3 PLAYERS FOR OFFENSIVE ACTION",
+        "top3_players_offensive.png",
+    )
+
+
+def generate_top3_players_defensive_chart(players_df: pd.DataFrame, output_dir: Path) -> Path:
+    return _generate_top3_players_chart(
+        players_df,
+        output_dir,
+        ["recuperacion", "despeje", "intercepcion", "falta cometida"],
+        "TOP 3 PLAYERS FOR DEFENSIVE ACTION",
+        "top3_players_defensive.png",
+        columns=2,
+    )
 
 
 def create_player_stats_table(players_df: pd.DataFrame) -> list[list[object]]:

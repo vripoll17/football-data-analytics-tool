@@ -2,7 +2,7 @@
 
 A tool designed for coaches and football analysts to record match events in real time and generate a visual comparison report of a team’s performance against its opponent.
 
-This project combines a graphical interface for logging match actions and a PDF report generator that creates comparative charts to analyze team performance.
+This project combines a graphical interface for logging match actions and a PDF report generator that creates comparative charts, player statistics, and AI-assisted match analysis.
 
 ## What does this project do?
 
@@ -13,6 +13,13 @@ This project combines a graphical interface for logging match actions and a PDF 
 - Generates a visual dashboard-style PDF with:
   - tornado chart for action comparison
   - radar chart comparing the team and the rival
+   - shot conversion chart
+   - pass accuracy pie chart
+   - defensive actions chart
+   - goalkeeper performance chart
+   - player statistics table
+   - top 3 player charts for offensive and defensive actions
+   - AI-generated analysis, strengths, weaknesses, and recommendations
 
 ## Main features
 
@@ -26,13 +33,22 @@ The main application is in [log_data.py](log_data.py). It allows:
 - automatically registering events with a timestamp
 
 ### 2. Visual report generation
-The report generator is in [report_generator.py](report_generator.py). From a match CSV, it creates a PDF with two charts:
+The report generator is in [report_generator.py](report_generator.py). From a match CSV, it creates a PDF with:
 
 - comparison of action volume by team
 - radar analysis with relative performance metrics
 - player statistics table
-- top 3 players statistics charts
+- shot conversion and pass accuracy analysis
+- defensive actions and goalkeeper performance charts
+- top 3 players statistics charts with vertical bars and player names on the X axis
+- separate offensive and defensive player rankings
+- defensive player rankings arranged in a 2x2 grid
 - AI-generated match analysis based on the calculated team and player statistics
+
+The top 3 player charts cover:
+
+- offensive actions: shots, shots on target, passes, failed passes, dribbles, and losses of possession
+- defensive actions: recoveries, clearances, interceptions, and committed fouls
 
 ### 3. Action configuration
 Available actions are centralized in [utils/config.py](utils/config.py). This makes it easy to expand or adjust the event catalog.
@@ -78,8 +94,8 @@ Main dependencies:
 - numpy
 - ipykernel
 - notebook
-- google-genai
 - python-dotenv
+- requests
 
 ## Installation
 
@@ -105,13 +121,13 @@ source .venv/bin/activate
 python -m pip install -r requirements.txt
 ```
 
-4. Configure a Google Gemini API key for the AI-generated match analysis. Create a `.env` file in the project root and add:
+4. Configure an OpenRouter API key for the AI-generated match analysis. Create a `.env` file in the project root and add:
 
 ```env
-GEMINI_API_KEY=your_google_gemini_api_key
+OPENROUTER_API_KEY=your_openrouter_api_key
 ```
 
-You can obtain the key from [Google AI Studio](https://aistudio.google.com/app/apikey). Keep the key private and do not commit the `.env` file.
+Keep the key private and do not commit the `.env` file.
 
 ## How to use the logging app
 
@@ -185,7 +201,7 @@ reports/Visual_Report_<match_name>.pdf
 Example:
 
 ```bash
-python report_generator.py data/barca_madrid.csv
+python report_generator.py data/barça_madrid_2425.csv
 ```
 
 ## Supported actions
@@ -218,7 +234,13 @@ The visual report includes:
 
 - comparative chart of action frequency by team
 - radar chart with percentage-based performance indicators
-- AI-generated analysis of the match
+- shot conversion and pass accuracy visualizations
+- defensive actions and goalkeeper performance visualizations
+- a player statistics table
+- separate top 3 player charts for offensive and defensive actions
+- vertical bars for player rankings
+- a 2x2 layout for the four defensive player metrics
+- AI-generated analysis of the match, including strengths, weaknesses, and recommendations
 - PDF export ready for analysis or presentation
 
 ## Use cases

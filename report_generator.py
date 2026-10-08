@@ -3,19 +3,41 @@ from __future__ import annotations
 import argparse
 import tempfile
 from pathlib import Path
-from xml.sax.saxutils import escape
-
 import pandas as pd
-from reportlab.lib import colors
-from reportlab.lib.enums import TA_CENTER
-from reportlab.lib.pagesizes import A4
-from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
-from reportlab.lib.units import cm
-from reportlab.platypus import Image, PageBreak, Paragraph, SimpleDocTemplate, Spacer, Table, TableStyle
 
-from charts import generate_radar_chart, generate_top3_players_by_action_chart, generate_tornado_chart, create_player_stats_table
-from utils.data_processing import calculate_match_stats, calculate_player_stats, clean_data
-from ai.analysis import generate_ai_analysis
+from charts import (
+    generate_pass_accuracy_pie_chart,
+    generate_defensive_actions_chart,
+    generate_goalkeeper_actions_chart,
+    generate_radar_chart,
+    generate_shot_conversion_chart,
+    generate_top3_players_offensive_chart,
+    generate_top3_players_defensive_chart,
+    generate_tornado_chart,
+)
+
+from pdf.builder import build_pdf
+
+from utils.data_processing import (
+    calculate_match_stats,
+    calculate_player_stats, 
+    clean_data, 
+    prepare_main_statistics_for_ai, 
+    calculate_radar_metrics, 
+    prepare_game_performance_statistics_for_ai,
+    prepare_offensive_statistics_for_ai,
+    prepare_defensive_statistics_for_ai
+)
+
+from ai.analysis import (
+    generate_main_statistics_analysis,
+    generate_game_volume_analysis,
+    generate_game_performance_analysis,
+    generate_offensive_analysis,
+    generate_defensive_analysis,
+    generate_strengths_weaknesses_recommendations_analysis
+)
+
 
 def load_dataframes(csv_path: str | Path) -> tuple[pd.DataFrame, pd.DataFrame]:
     csv_file = Path(csv_path)
@@ -26,86 +48,6 @@ def load_dataframes(csv_path: str | Path) -> tuple[pd.DataFrame, pd.DataFrame]:
     teams_df = calculate_match_stats(cleaned_df)
     players_df = calculate_player_stats(cleaned_df)
     return teams_df, players_df
-
-
-def _analysis_flowables(ai_analysis: str | None, styles: dict) -> list[Paragraph | Spacer]:
-    if not ai_analysis:
-        return [Paragraph("No se pudo generar el análisis de IA.", styles["BodyText"])]
-
-    flowables: list[Paragraph | Spacer] = []
-    for raw_line in ai_analysis.splitlines():
-        line = raw_line.strip()
-        if not line:
-            flowables.append(Spacer(1, 0.15 * cm))
-        elif line.startswith("### "):
-            flowables.append(Paragraph(escape(line[4:]), styles["Heading3"]))
-        elif line.startswith("## "):
-            flowables.append(Paragraph(escape(line[3:]), styles["Heading2"]))
-        elif line.startswith("# "):
-            flowables.append(Paragraph(escape(line[2:]), styles["Heading1"]))
-        elif line.startswith("- ") or line.startswith("* "):
-            flowables.append(Paragraph(escape(line[2:]), styles["BodyText"], bulletText="-"))
-        else:
-            flowables.append(Paragraph(escape(line), styles["BodyText"]))
-
-    return flowables
-
-
-def build_pdf(
-    tornado_path: Path,
-    radar_path: Path,
-    top3_path: Path,
-    players_df: pd.DataFrame,
-    ai_analysis: str | None,
-    output_pdf: Path,
-) -> None:
-    output_pdf.parent.mkdir(parents=True, exist_ok=True)
-    document = SimpleDocTemplate(str(output_pdf), pagesize=A4, rightMargin=1 * cm, leftMargin=1 * cm, topMargin=1 * cm, bottomMargin=1 * cm)
-    styles = getSampleStyleSheet()
-    title_style = ParagraphStyle("Title", parent=styles["Title"], fontSize=26, spaceAfter=30)
-    note_style = ParagraphStyle("Note", parent=styles["Normal"], alignment=TA_CENTER, fontSize=9)
-    story = [
-        Spacer(1, 1 * cm),
-        Paragraph("REPORTE VISUAL DE PARTIDO", title_style),
-        Paragraph("Análisis comparativo de volumen de juego", ParagraphStyle("Sub", parent=styles["Normal"], alignment=TA_CENTER, fontSize=12, textColor=colors.grey)),
-        Spacer(1, 2 * cm),
-        Image(str(tornado_path), width=19 * cm, height=13 * cm),
-        Spacer(1, 2 * cm),
-        Paragraph("<i>* Los valores indican el número total de eventos registrados.</i>", note_style),
-        PageBreak(),
-        Spacer(1, 1 * cm),
-        Paragraph("COMPARATIVA TELARAÑA ENTRE EQUIPOS", title_style),
-        Spacer(1, 1 * cm),
-        Image(str(radar_path), width=17 * cm, height=12 * cm),
-        Spacer(1, 1 * cm),
-        Paragraph("<i>* Escala porcentual (0 a 1) basada en las métricas definidas.</i>", note_style),
-        PageBreak(),
-        Paragraph("ESTADÍSTICAS POR JUGADOR", title_style),
-        Spacer(1, 0.5 * cm),
-    ]
-
-    table = Table(create_player_stats_table(players_df), colWidths=[3.3 * cm, 1.3 * cm, 1.2 * cm, 1.9 * cm, 1.1 * cm, 1.8 * cm, 1.8 * cm, 1.3 * cm, 1.4 * cm])
-    table.setStyle(TableStyle([
-        ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#0047AB")),
-        ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),
-        ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
-        ("ALIGN", (0, 0), (-1, -1), "CENTER"),
-        ("GRID", (0, 0), (-1, -1), 0.5, colors.grey),
-        ("ROWBACKGROUNDS", (0, 1), (-1, -1), [colors.whitesmoke, colors.white]),
-        ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
-        ("FONTSIZE", (0, 0), (-1, -1), 7),
-    ]))
-    story.extend([
-        table,
-        Spacer(1, 1 * cm),
-        Paragraph("TOP 3 JUGADORES POR ACCIÓN", title_style),
-        Image(str(top3_path), width=18 * cm, height=12 * cm),
-        PageBreak(),
-        Paragraph("ANÁLISIS GENERADO POR IA", title_style),
-        Spacer(1, 0.5 * cm),
-        *_analysis_flowables(ai_analysis, styles),
-    ])
-    document.build(story)
 
 
 def main() -> None:
@@ -119,11 +61,70 @@ def main() -> None:
         teams_df, players_df = load_dataframes(csv_path)
         with tempfile.TemporaryDirectory() as temporary_directory:
             output_dir = Path(temporary_directory)
+
+            main_statistics_for_ai = prepare_main_statistics_for_ai(teams_df)
+            main_statistics_analysis = generate_main_statistics_analysis(main_statistics_for_ai)
+
             tornado_path = generate_tornado_chart(teams_df, output_dir)
+
+            game_volume_statistics_for_ai = teams_df.to_dict(orient="records")
+            game_volume_analysis = generate_game_volume_analysis(game_volume_statistics_for_ai)
+
             radar_path = generate_radar_chart(teams_df, output_dir)
-            top3_path = generate_top3_players_by_action_chart(players_df, output_dir)
-            ai_analysis = generate_ai_analysis(players_df, teams_df)
-            build_pdf(tornado_path, radar_path, top3_path, players_df, ai_analysis, output_path)
+            
+            game_performance_statistics = calculate_radar_metrics(teams_df)
+            game_performance_statistics_for_ai = prepare_game_performance_statistics_for_ai(game_performance_statistics)
+            game_performance_analysis = generate_game_performance_analysis(game_performance_statistics_for_ai)           
+            
+            shot_conversion_path = generate_shot_conversion_chart(teams_df, output_dir)
+            pass_accuracy_pie_path = generate_pass_accuracy_pie_chart(teams_df, output_dir)
+
+            offensive_statistics_for_ai = prepare_offensive_statistics_for_ai(teams_df)
+            offensive_analysis = generate_offensive_analysis(offensive_statistics_for_ai)
+
+            defensive_actions_path = generate_defensive_actions_chart(teams_df, output_dir)
+            goalkeeper_actions_path = generate_goalkeeper_actions_chart(teams_df, output_dir)
+
+            defensive_statistics_for_ai = prepare_defensive_statistics_for_ai(teams_df)
+            defensive_analysis = generate_defensive_analysis(defensive_statistics_for_ai)
+
+            top3_offensive_path = generate_top3_players_offensive_chart(players_df, output_dir)
+            top3_defensive_path = generate_top3_players_defensive_chart(players_df, output_dir)
+
+            analysis_recopilation = {
+                "main_statistics_analysis": main_statistics_analysis,
+                "game_volume_analysis": game_volume_analysis,
+                "game_performance_analysis": game_performance_analysis,
+                "offensive_analysis": offensive_analysis,
+                "defensive_analysis": defensive_analysis,
+            }
+
+            strengths_weaknesses_recommendations_data_for_ai = {"ai_analysis": analysis_recopilation, 
+                "teams_data": teams_df.to_dict(orient="records"), 
+                "players_data": players_df.to_dict(orient="records")
+            }
+
+            strenghts_weaknesses_recommendations_analysis = generate_strengths_weaknesses_recommendations_analysis(strengths_weaknesses_recommendations_data_for_ai)
+
+            build_pdf(
+                tornado_path,
+                radar_path,
+                shot_conversion_path,
+                pass_accuracy_pie_path,
+                defensive_actions_path,
+                goalkeeper_actions_path,
+                top3_offensive_path,
+                top3_defensive_path,
+                teams_df,
+                players_df,
+                main_statistics_analysis,
+                game_volume_analysis,
+                game_performance_analysis,
+                offensive_analysis,
+                defensive_analysis,
+                strenghts_weaknesses_recommendations_analysis,
+                output_path,
+            )
         print(f"Informe visual generado en: {output_path.absolute()}")
     except Exception as error:
         print(f"Error: {error}")
