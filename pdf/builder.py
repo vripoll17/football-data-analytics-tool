@@ -5,7 +5,7 @@ from xml.sax.saxutils import escape
 
 import pandas as pd
 from reportlab.lib import colors
-from reportlab.lib.enums import TA_CENTER, TA_LEFT
+from reportlab.lib.enums import TA_CENTER, TA_JUSTIFY, TA_LEFT
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.lib.units import cm
@@ -112,7 +112,7 @@ def _create_defensive_kpis(teams_df: pd.DataFrame) -> Table:
 
 def _analysis_flowables(ai_analysis: str | None, styles: dict) -> list[Paragraph | Spacer]:
     if not ai_analysis:
-        return [Paragraph("No se pudo generar el análisis de IA.", styles["BodyText"])]
+        return [Paragraph("No se pudo generar el análisis de IA.", styles["AnalysisBody"])]
 
     flowables: list[Paragraph | Spacer] = []
     for raw_line in ai_analysis.splitlines():
@@ -126,9 +126,9 @@ def _analysis_flowables(ai_analysis: str | None, styles: dict) -> list[Paragraph
         elif line.startswith("# "):
             flowables.append(Paragraph(escape(line[2:]), styles["Heading1"]))
         elif line.startswith("- ") or line.startswith("* "):
-            flowables.append(Paragraph(escape(line[2:]), styles["BodyText"], bulletText="-"))
+            flowables.append(Paragraph(escape(line[2:]), styles["AnalysisBody"], bulletText="-"))
         else:
-            flowables.append(Paragraph(escape(line), styles["BodyText"]))
+            flowables.append(Paragraph(escape(line), styles["AnalysisBody"]))
 
     return flowables
 
@@ -199,6 +199,7 @@ def build_pdf(
     title_style = ParagraphStyle("Title", parent=styles["Title"], fontName="Helvetica-Bold", fontSize=25, leading=29, alignment=TA_LEFT, textColor=NAVY, spaceAfter=12)
     section_style = ParagraphStyle("Section", parent=styles["Heading2"], fontName="Helvetica-Bold", fontSize=17, leading=21, textColor=NAVY, spaceBefore=8, spaceAfter=9)
     subsection_style = ParagraphStyle("Subsection", parent=styles["Heading3"], fontName="Helvetica-Bold", fontSize=12, leading=15, textColor=BLUE, spaceBefore=5, spaceAfter=6)
+    styles.add(ParagraphStyle("AnalysisBody", parent=styles["BodyText"], alignment=TA_JUSTIFY))
     note_style = ParagraphStyle("Note", parent=styles["Normal"], alignment=TA_CENTER, fontSize=8.5, leading=11, textColor=MUTED)
     score_style = ParagraphStyle("Score", parent=styles["Heading2"], alignment=TA_CENTER, fontName="Helvetica-Bold", fontSize=20, leading=24, textColor=colors.white)
 
@@ -259,9 +260,9 @@ def build_pdf(
         Spacer(1, 0.5 * cm),
         Image(str(radar_path), width=17 * cm, height=12 * cm),
         Spacer(1, 1 * cm),
-        *_analysis_flowables(game_performance_analysis, styles),
-        Spacer(1, 1 * cm),
         Paragraph("<i>* Escala porcentual (0 a 1) basada en las métricas definidas.</i>", note_style),
+        Spacer(1, 1 * cm),
+        *_analysis_flowables(game_performance_analysis, styles),
         PageBreak(),
         Paragraph("3. Análisis ofensivo", section_style),
         Spacer(1, 0.65 * cm),
@@ -270,7 +271,7 @@ def build_pdf(
         Image(str(pass_accuracy_pie_path), width=12 * cm, height=10 * cm),
         Spacer(1, 0.8 * cm),
         _create_offensive_kpis(teams_df),
-        Spacer(1, 0.5 * cm),
+        PageBreak(),
         Paragraph("3.1. Conclusiones ofensivas", subsection_style),
         Spacer(1, 0.2 * cm),
         *_analysis_flowables(offensive_analysis, styles),
@@ -282,7 +283,7 @@ def build_pdf(
         Image(str(goalkeeper_actions_path), width=17 * cm, height=10 * cm),
         Spacer(1, 0.8 * cm),
         _create_defensive_kpis(teams_df),
-        Spacer(1, 0.5 * cm),
+        PageBreak(),
         Paragraph("4.1. Conclusiones defensivas", subsection_style),
         Spacer(1, 0.2 * cm),
         *_analysis_flowables(defensive_analysis, styles),

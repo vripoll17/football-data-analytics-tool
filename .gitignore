@@ -43,3 +43,6 @@ Thumbs.db
 
 # personal notes
 IMPROVEMENTS.md
+
+# Local prompt testing
+test_prompts.py

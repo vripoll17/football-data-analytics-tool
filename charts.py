@@ -132,12 +132,12 @@ def generate_goalkeeper_actions_chart(teams_df: pd.DataFrame, output_dir: Path) 
     team_name, rival_name = _visible_team_names(teams_df)
     my_team = _team_row(teams_df, MY_TEAM)
     rival = _team_row(teams_df, RIVAL_TEAM)
-    labels = [f"Tiros a puerta de {rival_name}", "Paradas", "Blocajes", f"Goles de {rival_name}"]
+    labels = [f"Tiros a puerta de {rival_name}", f"Goles de {rival_name}", "Paradas", "Blocajes"]
     values = [
         _value(rival, "tiro a puerta"),
+        _value(rival, "gol"),
         _value(my_team, "parada"),
         _value(my_team, "blocaje"),
-        _value(rival, "gol"),
     ]
 
     positions = np.arange(len(labels))
@@ -147,6 +147,7 @@ def generate_goalkeeper_actions_chart(teams_df: pd.DataFrame, output_dir: Path) 
     ax.bar_label(bars, padding=3, fontsize=9)
     ax.set_yticks(positions)
     ax.set_yticklabels(labels)
+    ax.invert_yaxis()
     ax.set_xlabel("Número de acciones")
     ax.set_title(f"RENDIMIENTO DEL PORTERO - {team_name}", fontsize=15, fontweight="bold")
     ax.grid(axis="x", alpha=0.25)
@@ -181,8 +182,19 @@ def generate_radar_chart(teams_df: pd.DataFrame, output_dir: Path) -> Path:
     ax.set_ylim(0, 1)
     ax.set_yticks([])
     ax.grid(color="#cccccc", linestyle="--", linewidth=0.6)
-    ax.set_title(f"COMPARATIVA TELARAÑA: {team_name} vs {rival_name}", pad=30, fontsize=14, fontweight="bold")
-    ax.legend(loc="upper right", bbox_to_anchor=(1.15, 1.15), frameon=False)
+    fig.suptitle(
+        f"COMPARATIVA TELARAÑA: {team_name} vs {rival_name}",
+        y=0.98,
+        fontsize=14,
+        fontweight="bold",
+    )
+    fig.legend(
+        loc="upper center",
+        bbox_to_anchor=(0.5, 0.91),
+        ncol=2,
+        frameon=False,
+    )
+    fig.subplots_adjust(top=0.78)
 
     plot_path = output_dir / "radar_visual.png"
     fig.savefig(plot_path, dpi=200, bbox_inches="tight")
