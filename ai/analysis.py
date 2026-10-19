@@ -20,7 +20,7 @@ load_dotenv(Path(__file__).resolve().parents[1] / ".env", override=True)
 api_key = os.getenv("OPENROUTER_API_KEY")
 
 AI_LANGUAGE = "Spanish"  # Change this to your preferred language, e.g., "English", "French", etc.
-model = "cohere/north-mini-code:free"  # Change this to your preferred model
+model = "nvidia/nemotron-3.5-super-vl:free"  # Change this to your preferred model
 OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
 
 
